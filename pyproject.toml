@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "vitrina-vakancies"
+version = "0.1.0"
+description = ""
+authors = ["Aleksandr Malyukov <finast@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+wagtail = "^6.2.1"
+psycopg = "^3.2.1"
+django-debug-toolbar = "^4.4.6"
+django-cors-headers = "^4.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
