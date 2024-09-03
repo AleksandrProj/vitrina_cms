@@ -11,13 +11,12 @@ services:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
     volumes:
-      - ..:/app    
+      - ..:/app  
     ports:
       - ${HTTP_PORT}:8000
       - ${DEBUG_PORT}:3000
     depends_on:
       - pgsql
-    # command: bash -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000" 
 
   # PostgreSQL
   pgsql:
@@ -39,14 +38,3 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - ./data/pgsql:/var/lib/postgresql/data
-
-  # NGINX - это для прода
-  # nginx:
-  #   container_name: ${PROJECT_PREFIX}_nginx
-  #   build:
-  #     context: .
-  #     dockerfile: ./containers/nginx.Dockerfile
-  #   ports:
-  #     - 1337:80
-  #   depends_on:
-  #     - web

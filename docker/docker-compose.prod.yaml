@@ -20,27 +20,6 @@
 #       - pgsql
 #     # command: bash -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000" 
 
-#   # PostgreSQL
-#   pgsql:
-#     container_name: ${PROJECT_PREFIX}_pgsql
-#     env_file:
-#       - .env
-#     build:
-#       context: .
-#       dockerfile: ./containers/pgsql.Dockerfile
-#       args:
-#         - USER_ID=${USER_ID}
-#         - GROUP_ID=${GROUP_ID}
-#     hostname: ${DB_HOST}
-#     ports:
-#       - ${DB_PORT}:5432
-#     environment:
-#       - POSTGRES_USER=${DB_USER}
-#       - POSTGRES_PASSWORD=${DB_PASSWORD}
-#       - POSTGRES_DB=${DB_NAME}
-#     volumes:
-#       - ./data/pgsql:/var/lib/postgresql/data
-
 #   # NGINX - это для прода
 #   # nginx:
 #   #   container_name: ${PROJECT_PREFIX}_nginx

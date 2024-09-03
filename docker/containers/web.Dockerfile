@@ -23,22 +23,22 @@ RUN pip install -U pip \
     && poetry config virtualenvs.create false
 
 
-RUN groupadd -g $GROUP_ID wagtail \
-    && useradd -u $USER_ID -g wagtail -s /bin/bash -d /app wagtail \
+RUN groupadd -g $GROUP_ID vv_user \
+    && useradd -u $USER_ID -g vv_user -s /bin/bash -d /app vv_user \
     && mkdir -p /app \
-    && chown wagtail:wagtail /app
+    && chown -R vv_user:vv_user /app
 
 # Install the project requirements.
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root
 
-# Use user "wagtail" to run the build commands below and the server itself.
-USER wagtail
+COPY ./docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Use user "vv_user" to run the build commands below and the server itself.
+USER vv_user
 
 # Use /app folder as a directory where the source code is stored.
 WORKDIR /app
 
-# Collect static files.
-# RUN python manage.py collectstatic --noinput --clear
-
-CMD set -xe; python manage.py migrate --noinput; python manage.py runserver 0.0.0.0:8000
+ENTRYPOINT [ "/entrypoint.sh" ]
