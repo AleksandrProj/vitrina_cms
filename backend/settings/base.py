@@ -25,7 +25,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 IS_SHOW_TOOLBAR=str_to_bool(os.environ.get("IS_SHOW_TOOLBAR", "True"))
 
 # Settings CORS
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_HOST", "").split(" ")
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_HOST", "http://127.0.0.1").split(" ")
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = (*default_headers,)
 
@@ -39,6 +39,9 @@ CORS_ALLOW_HEADERS = (*default_headers,)
 INSTALLED_APPS = [
     "home",
     "search",
+    "custom_user",
+    "custom_document",
+
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -214,3 +217,8 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'pptx', 'rtf', 'txt', 'xlsx']
+
+
+# Custom models
+AUTH_USER_MODEL = 'custom_user.CustomUser'
+WAGTAILDOCS_DOCUMENT_MODEL = 'custom_document.CustomDocument'
