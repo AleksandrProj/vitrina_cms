@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from corsheaders.defaults import default_headers
+from backend.utils import str_to_bool
 
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +21,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # DATA
 SECRET_KEY = os.environ.get("SECRET_KEY", "default-key")
-DEBUG = os.environ.get("DEBUG", True)
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
+IS_SHOW_TOOLBAR=str_to_bool(os.environ.get("IS_SHOW_TOOLBAR", "True"))
 
 # Settings CORS
 CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_HOST", "").split(" ")
@@ -212,4 +213,4 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # This can be omitted to allow all files, but note that this may present a security risk
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
-WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'pptx', 'rtf', 'txt', 'xlsx']

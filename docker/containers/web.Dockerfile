@@ -26,7 +26,7 @@ RUN pip install -U pip \
 RUN groupadd -g $GROUP_ID vv_user \
     && useradd -u $USER_ID -g vv_user -s /bin/bash -d /app vv_user \
     && mkdir -p /app \
-    && chown -R vv_user:vv_user /app
+    && chown vv_user:vv_user /app
 
 # Install the project requirements.
 COPY ./pyproject.toml ./poetry.lock ./
