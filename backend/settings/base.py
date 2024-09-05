@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "search",
     "custom_user",
     "custom_document",
+    "custom_images",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -222,3 +223,4 @@ WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'pptx', 'rtf', 'txt', 'xlsx']
 # Custom models
 AUTH_USER_MODEL = 'custom_user.CustomUser'
 WAGTAILDOCS_DOCUMENT_MODEL = 'custom_document.CustomDocument'
+WAGTAILIMAGES_IMAGE_MODEL = 'custom_images.CustomImage'
