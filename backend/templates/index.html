@@ -1,0 +1,153 @@
+{% load static wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+    {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+    {% endif %}
+    <meta name="keywords" content="">
+
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/backend.css' %}">
+</head>
+
+{% comment %} <body class="{% block body_class %}{% endblock %}">
+    {% block content %}{% endblock %}
+</body> {% endcomment %}
+
+<body>
+
+    <header>
+        <img src="./images/logo.png" alt="Вакансии - логотип">
+        <div class="header-title">Витрина высокоплачиваемых вакансий</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="articles.html">Статьи</a></li>
+                <li><a href="frontend-detail.html">Вакансии</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="second-block">
+        <div class="color-cover-main-block"></div>
+        <div class="cover-main-block"></div>
+        <div class="text-main-block">
+          <div class="intro">
+            <p>Подпишитесь на рассылку <br> новых вакансий и статей!</p>
+          </div>
+          <div class="subscribe-form">
+            <input type="text" placeholder="Ваше имя" />
+            <input type="email" placeholder="Ваш email" />
+            <button>Подписаться</button>
+          </div>
+        </div>
+      </div>
+
+    <main> 
+        <h2>Лучшие вакансии на сайте</h2>
+        <div class="vacancy-grid">
+            <div class="vacancy-card">
+                <img src="./images/5ka.png" alt="Frontend Developer">
+                <div class="vacancy-card-content">
+                    <h2>Frontend Developer</h2>
+                    <p><strong>Компания:</strong> ООО "Технологии"</p>
+                    <p><strong>Локация:</strong> Москва</p>
+                    <p><strong>Описание:</strong> Разработка интерфейсов с использованием HTML, CSS и JavaScript.</p>
+                    <p><strong>Зарплата:</strong> 120 000 - 150 000 руб./мес.</p>
+                    <a href="frontend-detail.html" class="more-button">Подробнее о вакансии</a>
+                    <a href="frontend-detail.html" class="respond-button">Откликнуться</a>
+                </div>
+            </div>
+
+            <div class="vacancy-card">
+                <img src="./images/5ka.png" alt="Backend Developer">
+                <div class="vacancy-card-content">
+                    <h2>Backend Developer</h2>
+                    <p><strong>Компания:</strong> ООО "Сервисы"</p>
+                    <p><strong>Локация:</strong> Санкт-Петербург</p>
+                    <p><strong>Описание:</strong> Разработка серверной части на Python/Django.</p>
+                    <p><strong>Зарплата:</strong> 130 000 - 160 000 руб./мес.</p>
+                    <a href="frontend-detail.html" class="more-button">Подробнее о вакансии</a>
+                    <a href="frontend-detail.html" class="respond-button">Откликнуться</a>
+                </div>
+            </div>
+
+            <div class="vacancy-card">
+                <img src="./images/5ka.png" alt="UI/UX Designer">
+                <div class="vacancy-card-content">
+                    <h2>UI/UX Designer</h2>
+                    <p><strong>Компания:</strong> ООО "Дизайн"</p>
+                    <p><strong>Локация:</strong> Новосибирск</p>
+                    <p><strong>Описание:</strong> Проектирование пользовательских интерфейсов.</p>
+                    <p><strong>Зарплата:</strong> 100 000 - 130 000 руб./мес.</p>
+                    <a href="frontend-detail.html" class="more-button">Подробнее о вакансии</a>
+                    <a href="frontend-detail.html" class="respond-button">Откликнуться</a>
+                </div>
+            </div>
+
+            <div class="vacancy-card">
+                <img src="./images/5ka.png" alt="UI/UX Designer">
+                <div class="vacancy-card-content">
+                    <h2>UI/UX Designer</h2>
+                    <p><strong>Компания:</strong> ООО "Дизайн"</p>
+                    <p><strong>Локация:</strong> Новосибирск</p>
+                    <p><strong>Описание:</strong> Проектирование пользовательских интерфейсов.</p>
+                    <p><strong>Зарплата:</strong> 100 000 - 130 000 руб./мес.</p>
+                    <a href="frontend-detail.html" class="more-button">Подробнее о вакансии</a>
+                    <a href="frontend-detail.html" class="respond-button">Откликнуться</a>
+                </div>
+            </div>
+        </div>
+        
+        <button class="all-job-btn">Посмотреть все вакансии</button>
+
+        <div class="footer-description">
+            <h3>Работа в Ярославле</h3>
+            <p>
+                Работа в Ярославле — это широкий диапазон вакансий в различных отраслях: от сотрудников сферы обслуживания до топ-менеджеров крупных компаний. Вы быстро найдете подходящую работу в Ярославле, ведь hh.ru сотрудничает со множеством компаний-работодателей, предоставляющих нам обширную информационную базу.
+
+                Сайт hh.ru ежедневно пополняется огромным количеством новых данных. Преимущество нашего портала не только в удобном поиске вакансий, но и в возможности сделать подписку на подходящие предложения, которые будут оперативно поступать на вашу электронную почту. Кроме того, на hh.ru ежедневно выставляются вакансии дня. Резюме можно заполнить по готовой форме и разместить на сайте. Важно периодически обновлять и по возможности улучшать свое резюме (добавлять новую информацию: релевантный опыт работы, повышение квалификации, получение актуальных профессиональных навыков и т.д.).
+
+                По популярным запросам кадровых отделов предприятий в Ярославле соискатель может договориться о собеседовании в первый же день поиска. Даже если вас интересует узкоспециальный рабочий профиль — вакансии по нему найдутся. Если прямо сейчас их нет, не расстраивайтесь. Наверняка предложения появятся в ближайшие дни. Обновления происходят регулярно, превращая поиск работы в увлекательное времяпровождение. Большинство услуг для соискателя абсолютно бесплатны.
+
+                На что стоит обратить внимание при поиске новой работы? Работодатели отдают предпочтение соискателям с высокими профессиональными качествами. Больше всего шансов на успех у профессионалов, которые достигли в одной компании карьерных вершин, но их дальнейшее повышение ограничено структурой и развитием компании. Хорошим критерием может являться стабильная динамика в резюме соискателя.
+
+                Но, даже если вы ищете работу в Ярославле в первый раз, не стоит недооценивать свои шансы. Ваши стремления обязательно воплотятся в реальность. Главное — объективно оцените свои силы и возможности, сформулируйте адекватные запросы к работодателю и будьте готовы адаптироваться к меняющимся обстоятельствам, постоянно учиться чему-то новому.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="articles.html">Статьи</a></li>
+                <li><a href="frontend-detail.html">Вакансии</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2024 Витрина высокоплачиваемых вакансий. Все права защищены.</p>
+        <p class="other-link">
+            <a href="#">Политика конфидициальности</a>
+            <a href="#">Карта сайта</a>
+        </p>
+    </footer>
+
+</body>
+
+</html>

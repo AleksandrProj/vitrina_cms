@@ -750,6 +750,20 @@ docs = ["Sphinx (>=7.0)", "myst-parser (==2.0.0)", "pyenchant (>=3.1.1,<4)", "sp
 testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=12.0,<13.0)", "azure-mgmt-frontdoor (>=1.0,<1.1)", "boto3 (>=1.28,<2)", "coverage (>=3.7.0)", "curlylint (==0.13.1)", "django-pattern-library (>=0.7)", "djhtml (==3.0.6)", "doc8 (==0.8.1)", "factory-boy (>=3.2)", "freezegun (>=0.3.8)", "polib (>=1.1,<2.0)", "python-dateutil (>=2.7)", "pytz (>=2014.7)", "ruff (==0.1.5)", "semgrep (==1.40.0)", "tblib (>=2.0,<3.0)"]
 
 [[package]]
+name = "wagtail-metadata"
+version = "5.0.0"
+description = "A tool to assist with metadata for social media."
+optional = false
+python-versions = ">=3"
+files = [
+    {file = "wagtail-metadata-5.0.0.tar.gz", hash = "sha256:3b9109928bad53306b21b64cf9205d84cbb88fc625bac0a38305bebb9c26e64a"},
+    {file = "wagtail_metadata-5.0.0-py2.py3-none-any.whl", hash = "sha256:fcc2bbb71e83b353ceef05d69a4cde3f2fbe645c9e5035e46f7829fc234a6405"},
+]
+
+[package.dependencies]
+wagtail = ">=5.0"
+
+[[package]]
 name = "willow"
 version = "1.8.0"
 description = "A Python image library that sits on top of Pillow, Wand and OpenCV"
@@ -778,4 +792,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b6d98b8bcd19f3741d4f84fc86fa961778f2fdadeb1a20b4209ef9933308dc27"
+content-hash = "794c22e51ab8c7b9c8ab4cbb1c1fdf3fa7d0f7984abbf1afcffcc4cce8a15f92"
