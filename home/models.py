@@ -78,6 +78,7 @@ class RubricArticlesPage(SeoPageMixin):
     """
         Рубрика для статей
     """
+    template = "home/articles-list.html"
     description = models.CharField(
         "Описание рубрики статей", max_length=255, null=False, blank=True)
 
@@ -97,6 +98,7 @@ class RubricVacanciesPage(SeoPageMixin):
     """
         Рубрика для вакансий
     """
+    template = "home/vacancies-list.html"
     description = models.CharField(
         "Описание рубрики вакансий", max_length=255, null=False, blank=True)
 
@@ -146,6 +148,8 @@ class ArticlesPage(BaseMaterialPage):
     """
         Модель для статей сайта
     """  
+    template = "home/article-detail.html"
+
     parent_page_type = ["home.RubricArticlesPage"]
 
     class Meta(BaseMaterialPage.Meta):
@@ -173,6 +177,7 @@ class VacanciesPage(BaseMaterialPage):
     """
         Модель для вакансий сайта
     """
+    template = "home/vacancy-detail.html"
     pp_name_button = models.CharField("Название для кнопки вакансии", max_length=100, null=True, blank=False)
     pp_url_button = models.URLField("Ссылка для кнопки вакансии", null=True, blank=False)
 
