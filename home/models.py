@@ -1,7 +1,7 @@
 from django.db import models
 
 from wagtail.models import Page, Orderable
-from wagtail.fields import RichTextField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.admin.panels import (
     FieldPanel,
@@ -13,12 +13,9 @@ from wagtailmetadata.models import MetadataPageMixin
 
 from modelcluster.fields import ParentalKey
 
-
-class HomePage(Page):
-    subpage_types = [
-        "home.RubricArticlesPage",
-        "home.RubricVacanciesPage",
-    ]
+from home.blocks import (
+    VacanciesBlock
+)
 
 
 class SeoPageMixin(MetadataPageMixin, Page):
@@ -37,12 +34,44 @@ class SeoPageMixin(MetadataPageMixin, Page):
     promote_panels = MetadataPageMixin.promote_panels + [
         FieldPanel("seo_keyword"),
         FieldPanel("seo_site"),
-        FieldPanel("seo_title_footer"),
-        FieldPanel("seo_description_footer"),
+        MultiFieldPanel([
+            FieldPanel("seo_title_footer"),
+            FieldPanel("seo_description_footer"),
+        ], "Нижний SEO блок для страниц"),
     ]
 
-    class Meta(MetadataPageMixin.Meta, Page.Meta):
-        pass
+    class Meta:
+        abstract = True
+
+
+class HomePage(SeoPageMixin):
+    """
+        Модель главной страницы
+    """
+    body = StreamField([
+        ("vacancies", VacanciesBlock(label="Блок лучших вакансий")),
+    ],
+    use_json_field=True,
+    blank=True,
+    verbose_name="Блоки для главной страницы",
+    block_counts={
+        "vacancies": {
+            "max_num": 1,
+        }
+    }
+    )
+    content_panels = SeoPageMixin.content_panels + [
+        FieldPanel("body")
+    ]
+
+    subpage_types = [
+        "home.RubricArticlesPage",
+        "home.RubricVacanciesPage",
+    ]
+
+    class Meta:
+        verbose_name = "Главная страница"
+        verbose_name_plural = "Главная страницы"
 
 
 class RubricArticlesPage(SeoPageMixin):
@@ -59,7 +88,7 @@ class RubricArticlesPage(SeoPageMixin):
         FieldPanel("description")
     ]
 
-    class Meta(SeoPageMixin.Meta):
+    class Meta:
         verbose_name = "Рубрика для статей"
         verbose_name_plural = "Рубрики для статей"
 
@@ -78,7 +107,7 @@ class RubricVacanciesPage(SeoPageMixin):
         FieldPanel("description")
     ]
 
-    class Meta(SeoPageMixin.Meta):
+    class Meta:
         verbose_name = "Рубрика для вакансий"
         verbose_name_plural = "Рубрики для вакансий"
 
@@ -88,10 +117,11 @@ class BaseMaterialPage(SeoPageMixin):
         Базовая модель для материалов сайта
     """
     description = RichTextField("Описание материала")
+    short_description = models.CharField("Краткое описание материала", max_length=200, null=True, blank=False)
     image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
-        blank=True,
+        blank=False,
         on_delete=models.SET_NULL,
         verbose_name="Изображение для материала",
         help_text="Выберите подходящее изображение материала из галереи и добавьте сюда",
@@ -102,13 +132,14 @@ class BaseMaterialPage(SeoPageMixin):
     
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel('description'),
+        FieldPanel('short_description'),
         MultiFieldPanel([
             FieldPanel("image"),
             FieldPanel("caption_image"),
         ]),
     ]
     
-    class Meta(SeoPageMixin.Meta):
+    class Meta:
         abstract=True
 
 class ArticlesPage(BaseMaterialPage):
@@ -142,12 +173,16 @@ class VacanciesPage(BaseMaterialPage):
     """
         Модель для вакансий сайта
     """
-    url = models.URLField("Партнерская ссылка на вакансию")
+    pp_name_button = models.CharField("Название для кнопки вакансии", max_length=100, null=True, blank=False)
+    pp_url_button = models.URLField("Ссылка для кнопки вакансии", null=True, blank=False)
 
     parent_page_type = ["home.RubricVacanciesPage"]
 
     content_panels = BaseMaterialPage.content_panels + [
-        FieldPanel('url'),
+        MultiFieldPanel([
+            FieldPanel('pp_name_button'),
+            FieldPanel('pp_url_button'),
+        ], "Кнопка партнерской ссылки"),
         InlinePanel('elements_vacancy', heading="Выберите элемент вакансии"),
     ]
 

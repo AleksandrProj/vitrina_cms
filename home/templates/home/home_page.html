@@ -1,21 +1,41 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% load static %}
 
 {% block body_class %}template-homepage{% endblock %}
 
-{% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
-{% endblock extra_css %}
-
 {% block content %}
+<main> 
+    {% for block_homepage in page.body %}
+        {% for vacancy in block_homepage.value %}        
+            {% if vacancy.block_type == "title" %}
+                <h2>{{ vacancy.value }}</h2>
+                <div class="vacancy-grid">
+            {% endif %}
+            
+            {% if vacancy.block_type == "vacancies" %}
+                <div class="vacancy-card">
+                    {% image vacancy.value.vacancies.image width-400 alt=vacancy.value.vacancies.caption_image  %}
+                    <div class="vacancy-card-content">
+                        <h2>{{ vacancy.value.vacancies.title }}</h2>
+                        {% for element in vacancy.value.vacancies.elements_vacancy.all %}
+                            <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                        {% endfor %}
+                        <p>{{ vacancy.value.vacancies.short_description }}</p>
+                        <a href="{% url 'detail_vacancy' slug=vacancy.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
+                        <a href="{{ vacancy.value.vacancies.pp_url_button }}" class="respond-button">{{ vacancy.value.vacancies.pp_name_button }}</a>
+                    </div>
+                </div>
+            {% endif %}
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <a href="{% url 'list-vacancies' %}" class="all-job-btn">Посмотреть все вакансии</a>
 
+    <div class="footer-description">
+        <h3>{{ page.seo_title_footer }}</h3>
+        <p>{{ page.seo_description_footer }}</p>
+    </div> 
+</main>
 {% endblock content %}

@@ -231,6 +231,9 @@ main {
     border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    width: 300px;
 }
 
 .all-job-btn:hover {
@@ -507,6 +510,10 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
     main.detail-page {
         margin-top: -60px;
+    }
+
+    .all-job-btn {
+        width: 80%;
     }
 
     footer .other-link {
