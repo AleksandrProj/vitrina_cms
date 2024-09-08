@@ -1,12 +1,20 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <header>
-    <img src="./images/logo.png" alt="Вакансии - логотип">
-    <div class="header-title">Витрина высокоплачиваемых вакансий</div>
-    <nav>
-        <ul>
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="articles.html">Статьи</a></li>
-            <li><a href="frontend-detail.html">Вакансии</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-    </nav>
+    {% if kolontituls %}
+    <a href="{% url 'home' %}">{% image kolontituls.logo width-170 alt=kolontituls.caption_logo %}</a>
+    {% for header in kolontituls.header %}        
+        <div class="header-title">{{ header.value.title_site }}</div>
+        <nav>
+            <ul>
+                {% for menu in header.value.menu%}
+                    <li><a href="{% url menu.value.link.slug %}">{{ menu.value.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endfor %}
+
+    {% else %}
+        <div class="header-title">Необходимо указать колонтитулы</div>
+    {% endif %}
 </header>

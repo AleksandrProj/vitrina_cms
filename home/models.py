@@ -14,7 +14,9 @@ from wagtailmetadata.models import MetadataPageMixin
 from modelcluster.fields import ParentalKey
 
 from home.blocks import (
-    VacanciesBlock
+    VacanciesBlock,
+    HeaderBlock,
+    FooterBlock,
 )
 
 
@@ -196,6 +198,7 @@ class VacanciesPage(BaseMaterialPage):
         verbose_name_plural = "Вакансии"
 
 
+# Snippets
 @register_snippet
 class ElementsVacanciesSnippet(models.Model):
     """
@@ -210,3 +213,57 @@ class ElementsVacanciesSnippet(models.Model):
     class Meta:
         verbose_name = "Элемент для вакансии"
         verbose_name_plural = "Элементы для вакансии"
+
+
+@register_snippet
+class HeaderAndFooterSnippet(models.Model):
+    """
+        Snippet меню
+    """
+    logo = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Логотип сайта",
+        related_name="+",
+    )
+    caption_logo = models.CharField("Подпись для логотипа", max_length=100, null=False, blank=False)
+    header = StreamField([
+        ('header_block', HeaderBlock())
+    ],
+    use_json_field=True,
+    blank=True,
+    verbose_name = "Блок шапки сайта",
+    block_counts = {
+        "header_block": {
+            "max_num": 1
+        }
+    }) 
+    footer = StreamField([
+        ('footer_block', FooterBlock())
+    ],
+    use_json_field=True,
+    blank=True,
+    verbose_name = "Блок подвала сайта",
+    block_counts = {
+        "footer_block": {
+            "max_num": 1
+        }
+    })
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('logo'),
+            FieldPanel('caption_logo'),
+        ]),
+        FieldPanel('header'),
+        FieldPanel('footer'),
+    ]
+
+    def __str__(self) -> str:
+        return f"Блок шапки и подвала ({self.pk})"
+
+    class Meta:
+        verbose_name = "Блок шапки и подвала"
+        verbose_name_plural = "Блоки шапки и подвала"

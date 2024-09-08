@@ -10,9 +10,9 @@ from home.views import (
 
 
 urlpatterns = [
-    path("articles/", ArticlesListViewset.as_view(), name="list-articles"),
-    path("articles/<slug:slug>", ArticlesDetailViewset.as_view(), name="detail_article"),
-    path("vacancies/", VacanciesListViewset.as_view(), name="list-vacancies"),
-    path("vacancies/<slug:slug>", VacanciesDetailViewset.as_view(), name="detail_vacancy"),
-    path("", HomePageViewset.as_view(), name="main-page"),
+    path("articles/", ArticlesListViewset.as_view(), name="articles"),
+    path("articles/<slug:slug>", ArticlesDetailViewset.as_view(), name="article_detail"),
+    path("vacancies/", VacanciesListViewset.as_view(), name="vacancies"),
+    path("vacancies/<slug:slug>", VacanciesDetailViewset.as_view(), name="vacancy_detail"),
+    path("", HomePageViewset.as_view(), name="home"),
 ]

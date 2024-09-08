@@ -7,6 +7,7 @@ from home.models import (
     HomePage,
     VacanciesPage,
     ArticlesPage,
+    HeaderAndFooterSnippet,
 )
 
 
@@ -15,8 +16,12 @@ class HomePageViewset(View):
         Viewset для главной страницы
     """
     def get(self, request, *args, **kwargs):
-        queryset = HomePage.objects.first()
-        return render(request, "home/home_page.html", {'page': queryset})
+        page_queryset = HomePage.objects.first()
+        kolontituls_queryset = HeaderAndFooterSnippet.objects.first()
+        return render(request, "home/home_page.html", {
+            'kolontituls': kolontituls_queryset,
+            'page': page_queryset,
+        })
 
 
 class ArticlesListViewset(ListView):

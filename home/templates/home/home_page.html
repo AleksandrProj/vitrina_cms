@@ -2,8 +2,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load static %}
 
-{% block body_class %}template-homepage{% endblock %}
-
 {% block content %}
 <main> 
     {% for block_homepage in page.body %}
@@ -22,7 +20,7 @@
                             <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
                         {% endfor %}
                         <p>{{ vacancy.value.vacancies.short_description }}</p>
-                        <a href="{% url 'detail_vacancy' slug=vacancy.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
+                        <a href="{% url 'vacancy_detail' slug=vacancy.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
                         <a href="{{ vacancy.value.vacancies.pp_url_button }}" class="respond-button">{{ vacancy.value.vacancies.pp_name_button }}</a>
                     </div>
                 </div>
@@ -31,7 +29,7 @@
         {% endfor %}
         </div>
     {% endfor %}
-    <a href="{% url 'list-vacancies' %}" class="all-job-btn">Посмотреть все вакансии</a>
+    <a href="{% url 'vacancies' %}" class="all-job-btn">Посмотреть все вакансии</a>
 
     <div class="footer-description">
         <h3>{{ page.seo_title_footer }}</h3>

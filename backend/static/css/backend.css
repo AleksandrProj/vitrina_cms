@@ -54,6 +54,7 @@ nav ul li a:hover {
 .header-title {
     font-size: 1.8em;
     font-weight: bold;
+    margin: 0 auto;
 }
 
 .subscribe-form {
