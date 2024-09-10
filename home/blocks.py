@@ -1,10 +1,12 @@
 from wagtail import blocks
-from wagtail.fields import StreamField
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.documents.blocks import DocumentChooserBlock
 
 
 # Блоки для страницы вакансий
 class VacancyBlock(blocks.StructBlock):
+    """
+        Блок с вакансией
+    """
     vacancies = blocks.PageChooserBlock(target_model="home.VacanciesPage", label="Вакансия")
 
 
@@ -50,6 +52,32 @@ class MenuBlock(blocks.StreamBlock):
     block = MenuElementBlock(label="Выбрать меню")
 
 
+class DataPolicyBlock(blocks.StructBlock):
+    """
+        Блок с основными элементами для юридических документов
+    """
+    name_block = blocks.CharBlock(
+        max_length=100,
+        required=True,
+        label="Заголовок блока"
+    )
+    document_block = DocumentChooserBlock(required=True, label="Добавить политику или соглашение")
+
+class PolicyBlock(blocks.StreamBlock):
+    """
+        Блок для юридических документов
+    """
+    privacy_policy_block = DataPolicyBlock(label="Добавить блок с юридическими документами")
+
+    class Meta:
+        required = True
+        block_counts = {
+            "privacy_policy_block": {
+                "max_num": 2
+            },
+        }
+
+
 class HeaderBlock(blocks.StructBlock):
     """
         Блок шапки сайта
@@ -71,8 +99,7 @@ class FooterBlock(blocks.StructBlock):
     """
     copyright = blocks.RichTextBlock(required=True, label="Копирайт для сайта")
     sitemap = blocks.URLBlock(required=False, label="Ссылка на карту сайта")
-    privacy_policy = blocks.RichTextBlock(required=True, label="Политика конфидициальности")
-    user_agreement = blocks.RichTextBlock(required=False, label="Пользовательское соглашение")   
+    policy_block = PolicyBlock(label="Блок юридических документов")  
     menu = MenuBlock(required=False, label="Меню сайта")
 
     class Meta:

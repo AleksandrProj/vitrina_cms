@@ -1,15 +1,36 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
 <footer>
-    <nav>
-        <ul>
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="articles.html">Статьи</a></li>
-            <li><a href="frontend-detail.html">Вакансии</a></li>
-            <li><a href="contacts.html">Контакты</a></li>
-        </ul>
-    </nav>
-    <p>&copy; 2024 Витрина высокоплачиваемых вакансий. Все права защищены.</p>
-    <p class="other-link">
-        <a href="#">Политика конфидициальности</a>
-        <a href="#">Карта сайта</a>
-    </p>
+    {% if kolontituls.footer %}
+        <div class="logo">
+            <a href="{% url 'home' %}">{% image kolontituls.logo width-170 alt=kolontituls.caption_logo %}</a>
+        </div>
+        <div>
+            {% for footer in kolontituls.footer %} 
+                {% if footer.value.menu %}
+                    <nav>
+                        <ul>
+                            {% for menu in footer.value.menu %}
+                                <li><a href="{% url menu.value.link.slug %}">{{ menu.value.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                {% else %}
+                    НЕОБХОДИМО ДОБАВИТЬ ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ!!!
+                {% endif %}
+                <p>{{footer.value.copyright}}</p>
+                <p class="other-link">                    
+                    {% for policy in footer.value.policy_block %}
+                        <a target="_blank" href="{{policy.value.document_block.url}}">{{policy.value.name_block}}</a>
+                    {% endfor %}
+
+                    <a href="#">{{footer.value.sitemap}}</a>
+                </p>
+            {% endfor %}
+        </div>
+        
+    {% else %}
+        <p>Необходимо заполнить информацию для подвала сайта!!!</p>
+    {% endif %}
+
 </footer>

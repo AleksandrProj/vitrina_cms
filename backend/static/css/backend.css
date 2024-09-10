@@ -274,6 +274,10 @@ footer a {
     margin: 5px;
 }
 
+footer .logo {
+    margin: 20px auto;
+}
+
 /* Стиль для странцы детальной странциы вакансии */
 main.detail-page-block {
     margin: -100px auto 40px;

@@ -1,20 +1,19 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 <header>
-    {% if kolontituls %}
+    {% if kolontituls.header %}
     <a href="{% url 'home' %}">{% image kolontituls.logo width-170 alt=kolontituls.caption_logo %}</a>
-    {% for header in kolontituls.header %}        
-        <div class="header-title">{{ header.value.title_site }}</div>
-        <nav>
-            <ul>
-                {% for menu in header.value.menu%}
-                    <li><a href="{% url menu.value.link.slug %}">{{ menu.value.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
-    {% endfor %}
-
+        {% for header in kolontituls.header %}        
+            <div class="header-title">{{ header.value.title_site }}</div>
+            <nav>
+                <ul>
+                    {% for menu in header.value.menu%}
+                        <li><a href="{% url menu.value.link.slug %}">{{ menu.value.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        {% endfor %}
     {% else %}
-        <div class="header-title">Необходимо указать колонтитулы</div>
+        <div class="header-title">Необходимо заполнить информацию для шапки сайта!!!</div>
     {% endif %}
 </header>
