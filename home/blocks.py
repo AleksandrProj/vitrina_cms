@@ -97,7 +97,7 @@ class FooterBlock(blocks.StructBlock):
     """
         Блок подвала сайта
     """
-    copyright = blocks.RichTextBlock(required=True, label="Копирайт для сайта")
+    copyright = blocks.CharBlock(required=True, max_length=250, label="Копирайт для сайта")
     sitemap = blocks.URLBlock(required=False, label="Ссылка на карту сайта")
     policy_block = PolicyBlock(label="Блок юридических документов")  
     menu = MenuBlock(required=False, label="Меню сайта")

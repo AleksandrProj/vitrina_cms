@@ -18,7 +18,7 @@
                 {% else %}
                     НЕОБХОДИМО ДОБАВИТЬ ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ!!!
                 {% endif %}
-                <p>{{footer.value.copyright}}</p>
+                <p>{{year_page}} © {{footer.value.copyright}}</p>
                 <p class="other-link">                    
                     {% for policy in footer.value.policy_block %}
                         <a target="_blank" href="{{policy.value.document_block.url}}">{{policy.value.name_block}}</a>

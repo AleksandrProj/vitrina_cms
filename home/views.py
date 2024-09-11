@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -10,18 +11,22 @@ from home.models import (
     HeaderAndFooterSnippet,
 )
 
-
+    
 class HomePageViewset(View):
     """
         Viewset для главной страницы
     """
     def get(self, request, *args, **kwargs):
+        super()
         page_queryset = HomePage.objects.first()
         kolontituls_queryset = HeaderAndFooterSnippet.objects.first()
-        return render(request, "home/home_page.html", {
+        year_page = datetime.now().year
+        context_data = {
             'kolontituls': kolontituls_queryset,
             'page': page_queryset,
-        })
+            'year_page': year_page
+        }
+        return render(request, "home/home_page.html", context_data)
 
 
 class ArticlesListViewset(ListView):
