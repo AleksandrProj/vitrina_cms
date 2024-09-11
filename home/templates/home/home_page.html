@@ -29,7 +29,9 @@
         {% endfor %}
         </div>
     {% endfor %}
-    <a href="{% url 'vacancies' %}" class="all-job-btn">Посмотреть все вакансии</a>
+    {% if page.url_button.slug %}
+        <a href="{% url page.url_button.slug %}" class="all-job-btn">{{page.name_button}}</a>
+    {% endif %}
 
     <div class="footer-description">
         <h3>{{ page.seo_title_footer }}</h3>
