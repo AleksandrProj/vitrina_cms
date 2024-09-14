@@ -15,6 +15,7 @@ from modelcluster.fields import ParentalKey
 
 from home.blocks import (
     VacanciesBlock,
+    ArticlesBlock,
     HeaderBlock,
     FooterBlock,
     FormBlock,
@@ -52,7 +53,8 @@ class HomePage(SeoPageMixin):
         Модель главной страницы
     """
     body = StreamField([
-        ("vacancies", VacanciesBlock(label="Блок лучших вакансий")),
+        ("vacancies", VacanciesBlock(label="Блок вакансий на главной")),
+        ("articles", ArticlesBlock(label="Блок статей на главной")),
     ],
     use_json_field=True,
     blank=True,
@@ -60,26 +62,14 @@ class HomePage(SeoPageMixin):
     block_counts={
         "vacancies": {
             "max_num": 1,
+        },
+        "articles": {
+            "max_num": 1,
         }
-    }
-    )
-
-    name_button = models.CharField("Название для кнопки", max_length=100, null=True, blank=False)
-    url_button = models.ForeignKey(
-        "home.RubricVacanciesPage",
-        null=True,
-        blank=False,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Страница для ссылки",
-    )
+    })
 
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel("body"),
-        MultiFieldPanel([
-            FieldPanel("name_button"),
-            FieldPanel("url_button"),
-        ], heading="Кнопка просмотра всех вакансий")
     ]
 
     subpage_types = [

@@ -5,26 +5,31 @@
 {% block content %}
     <main class="detail-page-block">
         <div class="detail-page">
+            {% comment %} Изображение и заголовок {% endcomment %}
             <div class="vacancy-detail-header">
                 {% image vacancy.image width-400 as vacancy_image  %}
                 <img src="{{vacancy_image.url}}" alt="{{vacancy.caption_image}}">
                 <h2>{{ vacancy.title }}</h2>
             </div>
 
+            {% comment %} Список элементов вакансии {% endcomment %}
             <div class="vacancy-detail-info">
                 {% for element in vacancy.elements_vacancy.all %}
                     <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
                 {% endfor %}
             </div>
 
+            {% comment %} Описание вакансии {% endcomment %}
             <div class="vacancy-description">
                 <h3>{{ vacancy.title_description_block }}:</h3>
                 {{ vacancy.description|richtext }}
             </div>
 
+            {% comment %} Ссылка на вакансию {% endcomment %}
             <a href="{{ vacancy.pp_url_button }}" class="apply-button">{{ vacancy.pp_name_button }}</a>
         </div>
 
+        {% comment %} SEO блок страницы {% endcomment %}
         <div class="footer-description">
             <h3>{{ vacancy.seo_title_footer }}</h3>
             <p>{{ vacancy.seo_description_footer }}</p>

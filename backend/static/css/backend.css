@@ -23,6 +23,10 @@ h2 {
     margin-bottom: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 header img {
     height: 50px;
     margin-right: 20px;
@@ -143,24 +147,31 @@ main {
     text-shadow: 4px 3px black;
 }
 
-.vacancy-grid {
+.material-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
 }
 
-.vacancy-card {
+.vacancy-card, .article-card {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1 1 calc(33% - 20px);
-    display: flex;
+    flex: 1 1 calc(33% - 20px);    
     padding: 20px;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.vacancy-card:hover {
+.vacancy-card {
+    display: flex;
+}
+
+.article-card {
+    display: block;
+}
+
+.vacancy-card:hover, .article-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -173,22 +184,23 @@ main {
     border-radius: 50%;
 }
 
-.vacancy-card-content {
+.vacancy-card-content, .article-card-content {
     flex-grow: 1;
 }
 
-.vacancy-card h2 {
+.vacancy-card h2, .article-card h2 {
     font-size: 1.5em;
     margin-top: 0;
     color: #2980B9;
 }
 
-.vacancy-card p {
+.vacancy-card p, .article-card p {
     margin: 10px 0;
     color: #666;
 }
 
-.vacancy-card p:last-child {
+.vacancy-card p:last-child, 
+.article-card p:last-child {
     margin-top: 15px;
     font-weight: bold;
     color: #333;
@@ -206,7 +218,8 @@ main {
     transition: background-color 0.3s;
 }
 
-.vacancy-card a.more-button, .article-card a.more-button {
+.vacancy-card a.more-button, 
+.article-card a.more-button {
     background-color: #12504F;
 }
 
@@ -214,12 +227,17 @@ main {
     background-color: #D6001C;
 }
 
-.vacancy-card a.more-button:hover, .article-card a.more-button:hover {
+.vacancy-card a.more-button:hover, 
+.article-card a.more-button:hover {
     background-color: #196d6b;
 }
 
 .vacancy-card a.button:hover {
     background-color: rgb(255, 0, 34);
+}
+
+.all-job-btn-block {
+    width: 100%;
 }
 
 .all-job-btn {
@@ -403,11 +421,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         font-size: 3em;
     }
 
-    .vacancy-card {
-        flex: 1 1 calc(50% - 20px);
-    }
-
-    .article-card {
+    .vacancy-card, .article-card {
         flex: 1 1 calc(50% - 20px);
     }
 
@@ -431,11 +445,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         font-size: 3em;
     }
 
-    .vacancy-card {
-        flex: 1 1 100%;
-    }
-
-    .article-card {
+    .vacancy-card, .article-card {
         flex: 1 1 100%;
     }
 
@@ -464,20 +474,23 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         font-size: 2em;
     }
 
-    .vacancy-card {
+    .vacancy-card, .article-card {
         flex-direction: column;
     }
 
-    .vacancy-card img {
+    .vacancy-card img, .article-card img {
         margin: 10px auto;
     }
 
-    .vacancy-card a.more-button, .vacancy-card a.respond-button {
+    .vacancy-card a.more-button, 
+    .article-card a.more-button,
+    .vacancy-card a.respond-button {
         display: block;
         text-align: center;
     }
     
-    .vacancy-card-content h2 {
+    .vacancy-card-content h2, 
+    .article-card-content h2 {
         text-align: center;
     }
 

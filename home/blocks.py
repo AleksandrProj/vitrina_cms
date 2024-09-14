@@ -10,9 +10,28 @@ class VacancyBlock(blocks.StructBlock):
     vacancies = blocks.PageChooserBlock(target_model="home.VacanciesPage", label="Вакансия")
 
 
+# Блоки для страницы вакансий
+class ArticleBlock(blocks.StructBlock):
+    """
+        Блок со статьями
+    """
+    articles = blocks.PageChooserBlock(target_model="home.ArticlesPage", label="Статья")
+
+
+class ButtonMainBlock(blocks.StructBlock):
+    """
+        Блок для вывода кнопки на главной для статей и вакансий
+    """
+    name = blocks.CharBlock(
+        max_length=100,
+        required=True,
+        label="Название для кнопки"
+    )
+    url = blocks.PageChooserBlock(label="Выбрать рубрику")
+
 class VacanciesBlock(blocks.StreamBlock):
     """
-        Блок лучших вакансий
+        Блок вакансий на главной
     """
     title = blocks.CharBlock(
         max_length=100,
@@ -20,6 +39,7 @@ class VacanciesBlock(blocks.StreamBlock):
         label="Заголовок блока"
     )
     vacancies = VacancyBlock(label="Добавить вакансию")
+    button = ButtonMainBlock(label="Добавить кнопку на рубрику вакансий")
 
     class Meta:
         block_counts = {
@@ -28,7 +48,36 @@ class VacanciesBlock(blocks.StreamBlock):
             },
             "vacancies": {
                 "max_num": 10
-            }
+            },
+            "button": {
+                "max_num": 1
+            },
+        }
+
+
+class ArticlesBlock(blocks.StreamBlock):
+    """
+        Блок статей на главной
+    """
+    title = blocks.CharBlock(
+        max_length=100,
+        required=True,
+        label="Заголовок блока"
+    )
+    articles = ArticleBlock(label="Добавить статью")
+    button = ButtonMainBlock(label="Добавить кнопку на рубрику статей")
+
+    class Meta:
+        block_counts = {
+            "title": {
+                "max_num": 1
+            },
+            "articles": {
+                "max_num": 10
+            },
+            "button": {
+                "max_num": 1
+            },
         }
 
 

@@ -5,34 +5,68 @@
 {% block content %}
 <main> 
     {% for block_homepage in page.body %}
-        {% for vacancy in block_homepage.value %}        
-            {% if vacancy.block_type == "title" %}
-                <h2>{{ vacancy.value }}</h2>
-                <div class="vacancy-grid">
+        
+        {% for material in block_homepage.value %}       
+            {% if material.block_type == "title" %}
+                <h2>{{ material.value }}</h2>
+                <div class="material-grid">
             {% endif %}
-            
-            {% if vacancy.block_type == "vacancies" %}
+
+            {% comment %} Блок вакансий {% endcomment %}
+            {% if material.block_type == "vacancies" %}
                 <div class="vacancy-card">
-                    {% image vacancy.value.vacancies.image width-400 alt=vacancy.value.vacancies.caption_image  %}
+                    {% image material.value.vacancies.image width-400 as vacancy_image%}
+                    <img src="{{vacancy_image.url}}" alt="{{material.value.vacancies.caption_image}}">
                     <div class="vacancy-card-content">
-                        <h2>{{ vacancy.value.vacancies.title }}</h2>
-                        {% for element in vacancy.value.vacancies.elements_vacancy.all %}
+                        <a href="{% url 'vacancy_detail' slug=material.value.vacancies.slug %}">
+                            <h2>{{ material.value.vacancies.title }}</h2>
+                        </a>                        
+
+                        {% for element in material.value.vacancies.elements_material.all %}
                             <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
                         {% endfor %}
-                        <p>{{ vacancy.value.vacancies.short_description }}</p>
-                        <a href="{% url 'vacancy_detail' slug=vacancy.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
-                        <a href="{{ vacancy.value.vacancies.pp_url_button }}" class="respond-button">{{ vacancy.value.vacancies.pp_name_button }}</a>
+
+                        <p>{{ material.value.vacancies.short_description }}</p>
+
+                        <a href="{% url 'vacancy_detail' slug=material.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
+                        <a href="{{ material.value.vacancies.pp_url_button }}" class="respond-button">{{ material.value.vacancies.pp_name_button }}</a>
                     </div>
                 </div>
             {% endif %}
 
+            {% comment %} Блок статей {% endcomment %}
+            {% if material.block_type == "articles" %}
+                <div class="article-card">
+                    {% image material.value.articles.image width-400 as article_image %}
+                    <img src="{{article_image.url}}" alt="{{material.value.articles.caption_image}}">
+                    <div class="article-card-content">
+                        <a href="{% url 'article_detail' slug=material.value.articles.slug %}">
+                            <h2>{{ material.value.articles.title }}</h2>
+                        </a>    
+
+                        {% for element in material.value.articles.elements_material.all %}
+                            <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                        {% endfor %}
+
+                        <p>{{ material.value.articles.short_description }}</p>
+
+                        <a href="{% url 'article_detail' slug=material.value.articles.slug %}" class="more-button">Читать статью</a>
+                    </div>
+                </div>
+            {% endif %}
+            
+            {% comment %} Вывод кнопки для раздела {% endcomment %}
+            {% if material.block_type == "button" %}
+            <div class="all-job-btn-block">
+                <a href="{%url material.value.url.slug %}" class="all-job-btn">{{material.value.name}}</a>
+            </div>                
+            {% endif %}
         {% endfor %}
         </div>
     {% endfor %}
-    {% if page.url_button.slug %}
-        <a href="{% url page.url_button.slug %}" class="all-job-btn">{{page.name_button}}</a>
-    {% endif %}
+    
 
+    {% comment %} SEO блок страницы {% endcomment %}
     <div class="footer-description">
         <h3>{{ page.seo_title_footer }}</h3>
         <p>{{ page.seo_description_footer }}</p>

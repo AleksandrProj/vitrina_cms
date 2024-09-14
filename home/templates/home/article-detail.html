@@ -5,17 +5,21 @@
 {% block content %}
     <main class="article-detail-page-block detail-page-block">
       <div class="article-detail-page detail-page">
+
+        {% comment %} Изображение и заголовок {% endcomment %}
         <div class="article-detail-header">
             {% image article.image width-800 as article_image  %}
             <img src="{{article_image.url}}" alt="{{article.caption_image }}">
-          <h2>{{ article.title }}</h2>
+            <h2>{{ article.title }}</h2>
         </div>
 
+        {% comment %} Описание статьи {% endcomment %}
         <div class="article-description">
             {{ article.description|richtext }}
         </div>
       </div>
 
+      {% comment %} SEO блок страницы {% endcomment %}
       <div class="footer-description">
         <h3>{{ article.seo_title_footer }}</h3>
         <p>{{ article.seo_description_footer }}</p>
