@@ -136,6 +136,7 @@ class BaseMaterialPage(SeoPageMixin):
     """
         Базовая модель для материалов сайта
     """
+    title_description_block = models.CharField("Название блока для описания", max_length=150, null=True, blank=False)
     description = RichTextField("Описание материала")
     short_description = models.CharField("Краткое описание материала", max_length=200, null=True, blank=False)
     image = models.ForeignKey(
@@ -151,12 +152,16 @@ class BaseMaterialPage(SeoPageMixin):
         "Подпись для изображения", max_length=150, blank=False, null=True)
     
     content_panels = SeoPageMixin.content_panels + [
-        FieldPanel('description'),
-        FieldPanel('short_description'),
+        MultiFieldPanel([
+            FieldPanel("title_description_block"),
+            FieldPanel("short_description"),
+            FieldPanel("description"),
+        ], heading="Блок описания"),
+
         MultiFieldPanel([
             FieldPanel("image"),
             FieldPanel("caption_image"),
-        ]),
+        ], heading="Блок изображения"),
     ]
     
     class Meta:
@@ -195,7 +200,6 @@ class VacanciesPage(BaseMaterialPage):
     """
         Модель для вакансий сайта
     """
-    template = "home/vacancy-detail.html"
     pp_name_button = models.CharField("Название для кнопки вакансии", max_length=100, null=True, blank=False)
     pp_url_button = models.URLField("Ссылка для кнопки вакансии", null=True, blank=False)
 

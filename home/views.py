@@ -30,14 +30,12 @@ class MainViewsetMixin(ContextMixin):
         }
         return context
 
-
-
     
 class HomePageViewset(View, MainViewsetMixin):
     """
         Viewset для главной страницы
     """
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
         context = super().get_context_data(**kwargs)
         page_queryset = HomePage.objects.first()
 
@@ -85,14 +83,18 @@ class VacanciesListViewset(ListView):
     #     return queryset
 
 
-class VacanciesDetailViewset(DetailView):
+class VacanciesDetailViewset(View, MainViewsetMixin):
     """
         Viewset для вывода детальной информации по вакансии
     """
-    model=VacanciesPage
-    template_name="home/vacancy-detail.html"
+    def get(self, request, slug, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        try:
+            vacancy_queryset = VacanciesPage.objects.get(slug=slug)
+        except VacanciesPage.DoesNotExist:
+            return render(request, "404.html", context)
+        
+        context['vacancy'] = vacancy_queryset
 
-    # def get_queryset(self):
-    #     queryset = super(CLASS_NAME, self).get_queryset()
-    #     queryset = queryset # TODO
-    #     return queryset
+        return render(request, "home/vacancy-detail.html", context)

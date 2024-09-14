@@ -97,6 +97,7 @@ main {
 .second-block {
     position: relative;
     min-height: 70vh;
+    z-index: 0;
 }
 
 .color-cover-main-block {

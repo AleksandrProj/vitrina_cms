@@ -1,1 +1,33 @@
-<h2>Test vacancy</h2>
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <main class="detail-page-block">
+        <div class="detail-page">
+            <div class="vacancy-detail-header">
+                {% image vacancy.image width-400 alt=vacancy.caption_image  %}
+                <h2>{{ vacancy.title }}</h2>
+            </div>
+
+            <div class="vacancy-detail-info">
+                {% for element in vacancy.elements_vacancy.all %}
+                    <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="vacancy-description">
+                <h3>{{ vacancy.title_description_block }}:</h3>
+                {{ vacancy.description|richtext }}
+            </div>
+
+            <a href="{{ vacancy.pp_url_button }}" class="apply-button">{{ vacancy.pp_name_button }}</a>
+        </div>
+
+        <div class="footer-description">
+            <h3>{{ vacancy.seo_title_footer }}</h3>
+            <p>{{ vacancy.seo_description_footer }}</p>
+        </div>
+        
+    </main>
+{% endblock %}
