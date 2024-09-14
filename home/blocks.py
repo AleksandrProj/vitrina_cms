@@ -104,3 +104,15 @@ class FooterBlock(blocks.StructBlock):
 
     class Meta:
         label = "Блок подвала сайта"
+
+
+class FormBlock(blocks.StructBlock):
+    """
+        Блок для форм сайта
+    """
+    name_input = blocks.CharBlock(required=True, max_length=100, label="Текст для инпута для имени")
+    email_input = blocks.CharBlock(required=True, max_length=100, label="Текст для инпута E-mail")
+    button = blocks.CharBlock(required=True, max_length=100, label="Текст для кнопки формы")
+
+    class Meta:
+        label = "Форма подписки"

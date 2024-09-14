@@ -110,7 +110,6 @@ main {
 
 .cover-main-block {
     position: absolute;
-    background-image: url("../images/cover.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -134,7 +133,7 @@ main {
     margin-bottom: 40px;
 }
 
-.intro p {
+.intro h1 {
     margin: 0;
     font-size: 4em;
     color: white;

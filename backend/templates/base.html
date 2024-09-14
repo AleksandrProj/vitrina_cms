@@ -1,4 +1,5 @@
 {% load static wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -32,15 +33,18 @@
 
     <div class="second-block">
         <div class="color-cover-main-block"></div>
-        <div class="cover-main-block"></div>
+        {% image main_banner.cover original as cover_img %}
+        <div class="cover-main-block" style="background-image: url('{{ cover_img.url }}')"></div>
         <div class="text-main-block">
           <div class="intro">
-            <p>Подпишитесь на рассылку <br> новых вакансий и статей!</p>
+            {{main_banner.header|richtext}}
           </div>
           <div class="subscribe-form">
-            <input type="text" placeholder="Ваше имя" />
-            <input type="email" placeholder="Ваш email" />
-            <button>Подписаться</button>
+            {% for form in main_banner.form %}
+              <input type="text" placeholder="{{form.value.name_input}}" />
+              <input type="email" placeholder="{{form.value.email_input}}" />
+              <button>{{form.value.button}}</button>
+            {% endfor %}
           </div>
         </div>
       </div>

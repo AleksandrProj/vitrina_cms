@@ -17,6 +17,7 @@ from home.blocks import (
     VacanciesBlock,
     HeaderBlock,
     FooterBlock,
+    FormBlock,
 )
 
 
@@ -282,3 +283,37 @@ class HeaderAndFooterSnippet(models.Model):
     class Meta:
         verbose_name = "Блок шапки и подвала"
         verbose_name_plural = "Блоки шапки и подвала"
+
+
+@register_snippet
+class MainBannerSnippet(models.Model):
+    """
+        Модель для первого экрана для всего сайта
+    """
+    header = RichTextField(features=['h1'], verbose_name="Заголовок")
+    form = StreamField([
+        ("form_block", FormBlock())
+    ],
+    use_json_field=True,
+    blank=True,
+    verbose_name = "Блок формы подписки",
+    block_counts = {
+        "form_block": {
+            "max_num": 1
+        }
+    }) 
+    cover = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Изображение для главного экрана",
+        related_name="+",
+    )
+
+    def __str__(self) -> str:
+        return f"Форма подписки для сайта ({self.pk})"
+
+    class Meta:
+        verbose_name = "Блок первого экрана сайта"
+        verbose_name_plural = "Блоки первого экрана сайта"
