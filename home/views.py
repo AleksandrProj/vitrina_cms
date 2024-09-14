@@ -57,17 +57,21 @@ class ArticlesListViewset(ListView):
     #     return queryset
 
 
-class ArticlesDetailViewset(DetailView):
+class ArticlesDetailViewset(View, MainViewsetMixin):
     """
         Viewset для вывода детальной информации по статье
     """
-    model=ArticlesPage
-    template_name="home/article-detail.html"
+    def get(self, request, slug, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        try:
+            article_queryset = ArticlesPage.objects.get(slug=slug)
+        except ArticlesPage.DoesNotExist:
+            return render(request, "404.html", context)
+        
+        context['article'] = article_queryset
 
-    # def get_queryset(self):
-    #     queryset = super(CLASS_NAME, self).get_queryset()
-    #     queryset = queryset # TODO
-    #     return queryset
+        return render(request, "home/article-detail.html", context)
 
 
 class VacanciesListViewset(ListView):

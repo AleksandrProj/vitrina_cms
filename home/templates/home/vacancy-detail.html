@@ -6,7 +6,8 @@
     <main class="detail-page-block">
         <div class="detail-page">
             <div class="vacancy-detail-header">
-                {% image vacancy.image width-400 alt=vacancy.caption_image  %}
+                {% image vacancy.image width-400 as vacancy_image  %}
+                <img src="{{vacancy_image.url}}" alt="{{vacancy.caption_image}}">
                 <h2>{{ vacancy.title }}</h2>
             </div>
 

@@ -103,6 +103,8 @@ class RubricArticlesPage(SeoPageMixin):
     parent_page_type = ["home.HomePage"]
     subpage_types = ["home.ArticlesPage"]
 
+    max_count = 1
+
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel("description")
     ]
@@ -122,6 +124,8 @@ class RubricVacanciesPage(SeoPageMixin):
 
     parent_page_type = ["home.HomePage"]
     subpage_types = ["home.VacanciesPage"]
+
+    max_count = 1
 
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel("description")

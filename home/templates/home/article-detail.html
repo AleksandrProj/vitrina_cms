@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <main class="article-detail-page-block detail-page-block">
+      <div class="article-detail-page detail-page">
+        <div class="article-detail-header">
+            {% image article.image width-800 as article_image  %}
+            <img src="{{article_image.url}}" alt="{{article.caption_image }}">
+          <h2>{{ article.title }}</h2>
+        </div>
+
+        <div class="article-description">
+            {{ article.description|richtext }}
+        </div>
+      </div>
+
+      <div class="footer-description">
+        <h3>{{ article.seo_title_footer }}</h3>
+        <p>{{ article.seo_description_footer }}</p>
+      </div>
+    </main>
+{% endblock %}

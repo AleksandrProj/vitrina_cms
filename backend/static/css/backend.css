@@ -399,7 +399,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
 /* Адаптивные стили */
 @media (max-width: 1024px) {
-    .intro p {
+    .intro h1 {
         font-size: 3em;
     }
 
@@ -427,7 +427,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 }
 
 @media (max-width: 768px) {
-    .intro p {
+    .intro h1 {
         font-size: 3em;
     }
 
@@ -460,7 +460,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 }
 
 @media (max-width: 480px) {
-    .intro p {
+    .intro h1 {
         font-size: 2em;
     }
 
