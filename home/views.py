@@ -2,9 +2,7 @@ from datetime import datetime
 from typing import Any
 
 from django.shortcuts import render
-from django.views.generic.list import ListView
 from django.views.generic.base import View, ContextMixin
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from home.models import (
     HomePage,
@@ -15,6 +13,8 @@ from home.models import (
     HeaderAndFooterSnippet,
     MainBannerSnippet,
 )
+
+from backend.utils import get_paginator
 
 
 class MainViewsetMixin(ContextMixin):
@@ -56,18 +56,8 @@ class ArticlesListViewset(View, MainViewsetMixin):
         rubric_articles = RubricArticlesPage.objects.first()
         article_list = ArticlesPage.objects.all()    
         
-        # Пагинатор 
-        paginator = Paginator(article_list, 3)   
-        page_number = request.GET.get('page', 1)
-        try:
-            articles = paginator.page(page_number)
-        except PageNotAnInteger:
-            articles = paginator.page(1)
-        except EmptyPage:
-            articles = paginator.page(paginator.num_pages)
-        
         context['rubric'] = rubric_articles
-        context['articles'] = articles
+        context['pages'] = get_paginator(request, article_list, per_page=10)
 
         return render(request, "home/articles-list.html", context)
 
@@ -89,17 +79,19 @@ class ArticlesDetailViewset(View, MainViewsetMixin):
         return render(request, "home/article-detail.html", context)
 
 
-class VacanciesListViewset(ListView):
+class VacanciesListViewset(View, MainViewsetMixin):
     """
         Viewset для вывода списка вакансий
     """
-    model=VacanciesPage
-    template_name="home/vacancies-list.html"
+    def get(self, request, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rubric_vacancies = RubricVacanciesPage.objects.first()
+        vacancies_list = VacanciesPage.objects.all()    
+        
+        context['rubric'] = rubric_vacancies
+        context['pages'] = get_paginator(request, vacancies_list, per_page=10)
 
-    # def get_queryset(self):
-    #     queryset = super(CLASS_NAME, self).get_queryset()
-    #     queryset = queryset # TODO
-    #     return queryset
+        return render(request, "home/vacancies-list.html", context)
 
 
 class VacanciesDetailViewset(View, MainViewsetMixin):

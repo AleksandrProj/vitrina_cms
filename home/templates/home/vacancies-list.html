@@ -1,1 +1,42 @@
-<h1>Vacancies</h1>
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+    <main class="vacancies-page-block">
+        {% comment %} Вывод информации по рубрике {% endcomment %}
+        <div class="intro-desc-block">
+            <h2>{{ rubric.title }}</h2>
+            <p>{{ rubric.description }}</p>
+        </div>      
+
+        {% comment %} Выод списка карточек вакансий {% endcomment %}
+        <div class="material-grid">            
+            {% for page in pages %}
+                <div class="vacancy-card">
+                    {% image page.image width-400 as page_image  %}
+                    <img src="{{page_image.url}}" alt="{{page.caption_image}}">
+                    <div class="vacancy-card-content">
+                        <h2>{{ page.title }}</h2>
+                        {% for element in page.elements_vacancy.all %}
+                            <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                        {% endfor %}
+                        <div>{{page.short_description}}</div>                        
+                        <a href="{% url 'vacancy_detail' slug=page.slug %}" class="more-button">Подробнее о вакансии</a>
+                        <a href="{{ page.pp_url_button }}" class="respond-button">{{ page.pp_name_button }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% comment %} Подключение пагинации по карточкам {% endcomment %}
+        {% include 'includes/pagination.html' with page=pages %}
+
+        {% comment %} SEO блок страницы {% endcomment %}
+        <div class="footer-description">
+            <h3>{{ rubric.seo_title_footer }}</h3>
+            <p>{{ rubric.seo_description_footer }}</p>
+        </div>
+    </main>
+{% endblock content %}

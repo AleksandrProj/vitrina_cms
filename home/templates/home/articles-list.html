@@ -13,19 +13,19 @@
 
         {% comment %} Вывод карточек статей {% endcomment %}
         <div class="articles-grid">            
-            {% for article in articles %}                    
+            {% for page in pages %}                    
                 <div class="article-card">
-                    {% image article.image width-400 as article_image  %}
-                    <img src="{{article_image.url}}" alt="{{article.caption_image}}">
-                    <h2>{{ article.title }}</h2>
-                    <p>{{ article.short_description }}</p>
-                    <a href="{% url 'article_detail' slug=article.slug %}" class="more-button">Читать статью</a>
+                    {% image page.image width-400 as page_image  %}
+                    <img src="{{page_image.url}}" alt="{{page.caption_image}}">
+                    <h2>{{ page.title }}</h2>
+                    <p>{{ page.short_description }}</p>
+                    <a href="{% url 'article_detail' slug=page.slug %}" class="more-button">Читать статью</a>
                 </div>
             {% endfor %}
         </div>
 
         {% comment %} Подключение пагинации по карточкам {% endcomment %}
-        {% include 'includes/pagination.html' with page=articles %}
+        {% include 'includes/pagination.html' with page=pages %}
 
         {% comment %} SEO блок страницы {% endcomment %}
         <div class="footer-description">
