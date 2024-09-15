@@ -12,6 +12,7 @@ psycopg = "^3.2.1"
 django-debug-toolbar = "^4.4.6"
 django-cors-headers = "^4.4.0"
 wagtail-metadata = "^5.0.0"
+transliterate = "^1.10.2"
 
 
 [build-system]

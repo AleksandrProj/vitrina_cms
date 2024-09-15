@@ -13,6 +13,8 @@ from wagtailmetadata.models import MetadataPageMixin
 
 from modelcluster.fields import ParentalKey
 
+from transliterate import slugify
+
 from home.blocks import (
     VacanciesBlock,
     ArticlesBlock,
@@ -43,6 +45,12 @@ class SeoPageMixin(MetadataPageMixin, Page):
             FieldPanel("seo_description_footer"),
         ], "Нижний SEO блок для страниц"),
     ]
+
+    def save(self, *args, **kwargs):
+        if not self.seo_title:
+            self.seo_title = self.title
+        self.slug = slugify(self.seo_title)
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
