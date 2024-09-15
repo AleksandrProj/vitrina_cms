@@ -48,10 +48,18 @@ class SeoPageMixin(MetadataPageMixin, Page):
     ]
 
     def save(self, *args, **kwargs):
+        name_current_class = self.__class__.__name__ 
+        
         if not self.seo_title:
             self.seo_title = self.title
-        self.slug = slugify(self.seo_title)
-        super().save(*args, **kwargs)
+        if name_current_class == 'RubricArticlesPage':
+            self.slug = 'articles'
+        elif name_current_class == 'RubricVacanciesPage':
+            self.slug = 'vacancies'
+        else:
+            self.slug = slugify(self.seo_title)
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
