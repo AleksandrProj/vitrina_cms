@@ -1,1 +1,36 @@
-<h1>Articles</h1>
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailuserbar %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+    <main class="articles-page-block">
+        {% comment %} Вывод информации по рубрике {% endcomment %}
+        <div class="intro-desc-block">
+            <h2>{{ rubric.title }}</h2>
+            <p>{{ rubric.description }}</p>
+        </div>
+
+        {% comment %} Вывод карточек статей {% endcomment %}
+        <div class="articles-grid">            
+            {% for article in articles %}                    
+                <div class="article-card">
+                    {% image article.image width-400 as article_image  %}
+                    <img src="{{article_image.url}}" alt="{{article.caption_image}}">
+                    <h2>{{ article.title }}</h2>
+                    <p>{{ article.short_description }}</p>
+                    <a href="{% url 'article_detail' slug=article.slug %}" class="more-button">Читать статью</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% comment %} Подключение пагинации по карточкам {% endcomment %}
+        {% include 'includes/pagination.html' with page=articles %}
+
+        {% comment %} SEO блок страницы {% endcomment %}
+        <div class="footer-description">
+            <h3>{{ rubric.seo_title_footer }}</h3>
+            <p>{{ rubric.seo_description_footer }}</p>
+        </div>
+    </main>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField, StreamField
@@ -96,7 +97,7 @@ class RubricArticlesPage(SeoPageMixin):
     """
     template = "home/articles-list.html"
     description = models.CharField(
-        "Описание рубрики статей", max_length=255, null=False, blank=True)
+        "Описание рубрики статей", max_length=300, null=False, blank=True)
 
     parent_page_type = ["home.HomePage"]
     subpage_types = ["home.ArticlesPage"]
@@ -118,7 +119,7 @@ class RubricVacanciesPage(SeoPageMixin):
     """
     template = "home/vacancies-list.html"
     description = models.CharField(
-        "Описание рубрики вакансий", max_length=255, null=False, blank=True)
+        "Описание рубрики вакансий", max_length=300, null=False, blank=True)
 
     parent_page_type = ["home.HomePage"]
     subpage_types = ["home.VacanciesPage"]
@@ -140,7 +141,7 @@ class BaseMaterialPage(SeoPageMixin):
     """
     title_description_block = models.CharField("Название блока для описания", max_length=150, null=True, blank=False)
     description = RichTextField("Описание материала")
-    short_description = models.CharField("Краткое описание материала", max_length=200, null=True, blank=False)
+    short_description = models.CharField("Краткое описание материала", max_length=300, null=True, blank=False)
     image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,

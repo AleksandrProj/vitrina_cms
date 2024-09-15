@@ -1,0 +1,25 @@
+{% load filterpagination %}
+
+
+{% if page.has_other_pages %}
+    <ul class="pagination" id="pagination">
+        {% if page.has_previous %}
+            <li>
+                <a href="?page={{ page.previous_page_number }}" class="prev">&laquo; Назад</a>
+            </li>
+        {% endif %}
+        
+        
+        {% for num_p in page.paginator.page_range %}
+            <li class="{{ num_p|curpage:page.number }}">
+                <a href="?page={{ num_p }}">{{ num_p }}</a>
+            </li>
+        {% endfor %}    
+
+        {% if page.has_next %}
+            <li>
+                <a href="?page={{ page.next_page_number }}" class="next">Вперед &raquo;</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}

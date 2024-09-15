@@ -191,7 +191,7 @@ main {
 .vacancy-card h2, .article-card h2 {
     font-size: 1.5em;
     margin-top: 0;
-    color: #2980B9;
+    color: #12504F;
 }
 
 .vacancy-card p, .article-card p {
@@ -413,6 +413,52 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 .article-card p {
     margin: 10px 0;
     color: #666;
+}
+
+.public-date {
+    color: gray;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* Стили пагинации */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: white;
+    color: #12504F;
+    border-radius: 5px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #12504F;
+    color: white;
+}
+
+.pagination .active a {
+    background-color: #12504F;
+    color: white;
+}
+
+.pagination .disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 /* Адаптивные стили */

@@ -9,8 +9,11 @@
             <div class="vacancy-detail-header">
                 {% image vacancy.image width-400 as vacancy_image  %}
                 <img src="{{vacancy_image.url}}" alt="{{vacancy.caption_image}}">
-                <h2>{{ vacancy.title }}</h2>
-            </div>
+                <h2>
+                    {{ vacancy.title }}
+                    <div class="public-date">Дата размещения вакансии: {{ vacancy.latest_revision_created_at|date:"d.m.Y" }} {{ vacancy.latest_revision_created_at|date:"H:i" }}</div>
+                </h2>
+            </div>            
 
             {% comment %} Список элементов вакансии {% endcomment %}
             <div class="vacancy-detail-info">

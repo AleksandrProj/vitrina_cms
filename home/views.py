@@ -1,14 +1,17 @@
 from datetime import datetime
 from typing import Any
+
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.base import View, ContextMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from home.models import (
     HomePage,
     VacanciesPage,
+    RubricVacanciesPage,
     ArticlesPage,
+    RubricArticlesPage,
     HeaderAndFooterSnippet,
     MainBannerSnippet,
 )
@@ -44,17 +47,29 @@ class HomePageViewset(View, MainViewsetMixin):
         return render(request, "home/home_page.html", context)
 
 
-class ArticlesListViewset(ListView):
+class ArticlesListViewset(View, MainViewsetMixin):
     """
         Viewset для вывода списка статьей
     """
-    model=ArticlesPage
-    template_name="home/articles-list.html"
+    def get(self, request, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rubric_articles = RubricArticlesPage.objects.first()
+        article_list = ArticlesPage.objects.all()    
+        
+        # Пагинатор 
+        paginator = Paginator(article_list, 3)   
+        page_number = request.GET.get('page', 1)
+        try:
+            articles = paginator.page(page_number)
+        except PageNotAnInteger:
+            articles = paginator.page(1)
+        except EmptyPage:
+            articles = paginator.page(paginator.num_pages)
+        
+        context['rubric'] = rubric_articles
+        context['articles'] = articles
 
-    # def get_queryset(self):
-    #     queryset = super(CLASS_NAME, self).get_queryset()
-    #     queryset = queryset # TODO
-    #     return queryset
+        return render(request, "home/articles-list.html", context)
 
 
 class ArticlesDetailViewset(View, MainViewsetMixin):
