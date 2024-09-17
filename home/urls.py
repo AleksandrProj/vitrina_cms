@@ -1,5 +1,7 @@
 from django.urls import path
 
+from wagtail.contrib.sitemaps.views import sitemap
+
 from home.views import (
     HomePageViewset,
     ArticlesListViewset, 
@@ -9,6 +11,21 @@ from home.views import (
 )
 
 from seo.views import RobotsView
+from seo.sitemap import (
+    HomeSitemap,
+    ArticlesSitemap,
+    VacanciesSitemap,
+    RubricArticlesSitemap,
+    RubricVacanciesSitemap
+)
+
+sitemaps = {
+    'homepage': HomeSitemap,
+    'articles': ArticlesSitemap,
+    'vacancies': VacanciesSitemap,
+    'rubric_vacancies': RubricVacanciesSitemap,
+    'rubric_articles': RubricArticlesSitemap,
+}
 
 
 urlpatterns = [
@@ -17,5 +34,6 @@ urlpatterns = [
     path("vacancies/", VacanciesListViewset.as_view(), name="vacancies"),
     path("vacancies/<slug:slug>", VacanciesDetailViewset.as_view(), name="vacancy_detail"),
     path("robots.txt", RobotsView.as_view(), name="robots"),
+    path("sitemap.xml", sitemap, {'sitemaps': sitemaps}),
     path("", HomePageViewset.as_view(), name="home"),
 ]

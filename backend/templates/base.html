@@ -1,5 +1,5 @@
 {% load static wagtailcore_tags wagtailuserbar %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -7,21 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}
-        {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
-        {% endblock %}
-        {% block title_suffix %}
-        {% wagtail_site as current_site %}
-        {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
-        {% endblock %}
-    </title>
-    {% if page.search_description %}
-        <meta name="description" content="{{ page.search_description }}" />
-    {% endif %}
-    {% if page.seo_keyword %}
-        <meta name="keywords" content="{{ page.seo_keyword }}">
-    {% endif %}
 
     {# Global stylesheets #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/backend.css' %}">
@@ -31,6 +16,24 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+
+    {# Meta tags page #}
+    {% block meta_tags %}
+        <title>
+          {% block title %}
+          {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+          {% endblock %}
+          {% block title_suffix %}
+          {% wagtail_site as current_site %}
+          {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+          {% endblock %}
+      </title>
+      {% meta_tags page %}
+    {% endblock %}
+
+    {% if page.seo_keyword %}
+        <meta name="keywords" content="{{ page.seo_keyword }}">
+    {% endif %}
 </head>
 
 <body>

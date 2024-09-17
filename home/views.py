@@ -54,7 +54,7 @@ class ArticlesListViewset(View, MainViewsetMixin):
     def get(self, request, **kwargs):
         context = super().get_context_data(**kwargs)
         rubric_articles = RubricArticlesPage.objects.first()
-        article_list = ArticlesPage.objects.all()    
+        article_list = ArticlesPage.objects.filter(live=True)   
         
         context['rubric'] = rubric_articles
         context['pages'] = get_paginator(request, article_list, per_page=10)
@@ -86,7 +86,7 @@ class VacanciesListViewset(View, MainViewsetMixin):
     def get(self, request, **kwargs):
         context = super().get_context_data(**kwargs)
         rubric_vacancies = RubricVacanciesPage.objects.first()
-        vacancies_list = VacanciesPage.objects.all()    
+        vacancies_list = VacanciesPage.objects.filter(live=True)   
         
         context['rubric'] = rubric_vacancies
         context['pages'] = get_paginator(request, vacancies_list, per_page=10)

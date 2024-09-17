@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils import timezone
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField, StreamField
@@ -25,6 +26,13 @@ from home.blocks import (
 )
 
 
+def get_image_model_string():
+    try:
+        image_model = settings.WAGTAILIMAGES_IMAGE_MODEL
+    except AttributeError:
+        image_model = 'wagtailimages.Image'
+    return image_model
+
 class SeoPageMixin(MetadataPageMixin, Page):
     """
         Класс миксин для добавление моделям seo параметров
@@ -34,9 +42,18 @@ class SeoPageMixin(MetadataPageMixin, Page):
     seo_site = models.CharField(
         "SEO сайт", max_length=255, blank=True, null=False)
     seo_title_footer = models.CharField(
-        "Заголовок нижнего SEO блока", max_length=200, blank=True, null=False)
+        "Заголовок нижнего SEO блока", max_length=200, blank=False, null=False)
     seo_description_footer = models.TextField(
-        "Заголовок нижнего SEO блока", blank=True, null=False)
+        "Заголовок нижнего SEO блока", blank=False, null=False)
+    search_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True,
+        blank=False,
+        related_name='+',
+        on_delete=models.SET_NULL,
+        verbose_name=_('SEO Изображение страницы'),
+        help_text=_("Добавьте изображение страницы для поисковых систем")
+    )
 
     promote_panels = MetadataPageMixin.promote_panels + [
         FieldPanel("seo_keyword"),
@@ -46,6 +63,15 @@ class SeoPageMixin(MetadataPageMixin, Page):
             FieldPanel("seo_description_footer"),
         ], "Нижний SEO блок для страниц"),
     ]
+
+    def get_meta_title(self):
+        return self.seo_title or self.title
+    
+    def get_meta_description(self):
+        return self.search_description
+    
+    def get_meta_image(self):
+        return self.search_image
 
     def save(self, *args, **kwargs):
         name_current_class = self.__class__.__name__ 
@@ -94,6 +120,10 @@ class HomePage(SeoPageMixin):
         "home.RubricVacanciesPage",
     ]
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('home')
+
     class Meta:
         verbose_name = "Главная страница"
         verbose_name_plural = "Главная страницы"
@@ -116,6 +146,10 @@ class RubricArticlesPage(SeoPageMixin):
         FieldPanel("description")
     ]
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('articles')
+
     class Meta:
         verbose_name = "Рубрика для статей"
         verbose_name_plural = "Рубрики для статей"
@@ -137,6 +171,10 @@ class RubricVacanciesPage(SeoPageMixin):
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel("description")
     ]
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('vacancies')
 
     class Meta:
         verbose_name = "Рубрика для вакансий"
@@ -186,6 +224,10 @@ class ArticlesPage(BaseMaterialPage):
 
     parent_page_type = ["home.RubricArticlesPage"]
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('article_detail', kwargs={'slug': self.slug})
+
     class Meta(BaseMaterialPage.Meta):
         verbose_name = "Статья для сайта"
         verbose_name_plural = "Статьи для сайта"
@@ -223,6 +265,10 @@ class VacanciesPage(BaseMaterialPage):
         ], "Кнопка партнерской ссылки"),
         InlinePanel('elements_vacancy', heading="Выберите элемент вакансии"),
     ]
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('vacancy_detail', kwargs={'slug': self.slug})
 
     class Meta(BaseMaterialPage.Meta):
         verbose_name = "Вакансия"

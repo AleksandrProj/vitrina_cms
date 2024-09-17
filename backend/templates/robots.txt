@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /search/
 
 # Sitemap files
-Sitemap: {{ request.site.root_url }}/sitemap.xml
+Sitemap: {{ wagtail_site.root_url }}/sitemap.xml

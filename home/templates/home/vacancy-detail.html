@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailuserbar %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
+
+{% block meta_tags %}
+    {% meta_tags vacancy %}
+{% endblock %}
 
 {% block content %}
     <main class="detail-page-block">

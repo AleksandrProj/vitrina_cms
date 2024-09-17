@@ -1,6 +1,10 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 {% load static %}
+
+{% block meta_tags %}
+    {% meta_tags page %}
+{% endblock %}
 
 {% block content %}
 <main> 
