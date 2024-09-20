@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
-{% block title %}Page not found{% endblock %}
-
-{% block body_class %}template-404{% endblock %}
+{# Meta tags page #}
+{% block meta_tags %}
+    {% block title %}
+    <title>Страница не найдена</title>
+    {% endblock %}
+{% endblock %}
 
 {% block content %}
-<h1>Page not found77</h1>
+<div class="error-page">
+    <div class="error-page__img">
+        <img src="{% static 'images/404-error-page.png' %}" alt="">
+    </div>
+    <h2>Мы не нашли такую страницу на сайте. <br> <strong>Вернитесь назад</strong> и попробуйте снова.</h2>
+</div>
 
-<h2>Sorry, this page could not be found.</h2>
 {% endblock %}

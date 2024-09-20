@@ -461,6 +461,28 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     opacity: 0.5;
 }
 
+.error-page h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #000;
+    margin: 0px auto 100px;
+    font-weight: normal;
+}
+
+.error-page strong {
+    color: #D6001C;
+    text-decoration: underline;
+}
+
+.error-page__img {
+    margin: 100px auto;
+    text-align: center;
+}
+
+.error-page__img img {
+    width: 500px;
+}
+
 /* Адаптивные стили */
 @media (max-width: 1024px) {
     .intro h1 {
@@ -503,7 +525,6 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         flex-direction: column;
     }
 
-
     .subscribe-form input[type="text"],
     .subscribe-form input[type="email"] {
         margin: 10px 0;
@@ -512,6 +533,10 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
     .subscribe-form button {
         width: 100%;
+    }
+
+    .error-page__img img {
+        width: 80%;
     }
 }
 
@@ -584,5 +609,12 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .error-page h2 {
+        width: 80%;
+    }
+    .error-page__img img {
+        width: 95%;
     }
 }

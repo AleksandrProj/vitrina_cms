@@ -1,13 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
-    </body>
-</html>
+{# Meta tags page #}
+{% block meta_tags %}
+    {% block title %}
+    <title>Критическая ошибка на сайте</title>
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <div class="error-page__img">
+        <img src="{% static 'images/500-error-page.webp' %}" alt="">
+    </div>
+    <h2>Произошла внутреняя ошибка сервера. Приносим свои извинения. <br> Мы уже работает над устранением ошибки. Попробуйте зайти позже.</h2>
+</div>
+
+{% endblock %}
