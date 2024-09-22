@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -24,6 +26,8 @@ from home.blocks import (
     FooterBlock,
     FormBlock,
 )
+
+from backend.utils import get_paginator
 
 
 def get_image_model_string():
@@ -72,6 +76,17 @@ class SeoPageMixin(MetadataPageMixin, Page):
     
     def get_meta_image(self):
         return self.search_image
+    
+    def get_context(self, request, *args, **kwargs):
+        """
+            Главный кастомный контекст
+        """
+        context = super().get_context(request, *args, **kwargs)
+        context['main_banner'] = MainBannerSnippet.objects.first()
+        context['kolontituls'] = HeaderAndFooterSnippet.objects.first()
+        context['year_page'] = datetime.now().year
+        return context
+    
 
     def save(self, *args, **kwargs):
         name_current_class = self.__class__.__name__ 
@@ -123,6 +138,21 @@ class HomePage(SeoPageMixin):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('home')
+    
+    def get_preview_template(self, request, mode_name):
+        return f"home/home_page.html"
+
+    def get_context(self, request, *args, **kwargs):
+        """
+            Кастомный контекст для главной страницы
+        """
+        # Определение основного контекста
+        context = super().get_context(request, *args, **kwargs)
+
+        # Написание пользовательского контекста
+        context['page'] = self
+
+        return context
 
     class Meta:
         verbose_name = "Главная страница"
@@ -133,7 +163,6 @@ class RubricArticlesPage(SeoPageMixin):
     """
         Рубрика для статей
     """
-    template = "home/articles-list.html"
     description = models.CharField(
         "Описание рубрики статей", max_length=300, null=False, blank=True)
 
@@ -149,6 +178,23 @@ class RubricArticlesPage(SeoPageMixin):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('articles')
+    
+    def get_preview_template(self, request, mode_name):
+        return f"home/articles-list.html"
+    
+    def get_context(self, request, *args, **kwargs):
+        """
+            Кастомный контекст для рубрики статей
+        """
+        # Определение основного контекста
+        context = super().get_context(request, *args, **kwargs)
+
+        # Написание пользовательского контекста
+        articles_list = ArticlesPage.objects.filter(live=True)
+        context['rubric'] = self
+        context['pages'] = get_paginator(request, articles_list, per_page=10)
+
+        return context
 
     class Meta:
         verbose_name = "Рубрика для статей"
@@ -175,6 +221,23 @@ class RubricVacanciesPage(SeoPageMixin):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('vacancies')
+    
+    def get_preview_template(self, request, mode_name):
+        return f"home/vacancies-list.html"
+
+    def get_context(self, request, *args, **kwargs):
+        """
+            Кастомный контекст для рубрики вакансий
+        """
+        # Определение основного контекста
+        context = super().get_context(request, *args, **kwargs)
+
+        # Написание пользовательского контекста
+        vacancies_list = VacanciesPage.objects.filter(live=True)
+        context['rubric'] = self
+        context['pages'] = get_paginator(request, vacancies_list, per_page=10)
+
+        return context
 
     class Meta:
         verbose_name = "Рубрика для вакансий"
@@ -227,6 +290,21 @@ class ArticlesPage(BaseMaterialPage):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('article_detail', kwargs={'slug': self.slug})
+    
+    def get_preview_template(self, request, mode_name):
+        return f"home/article-detail.html"
+
+    def get_context(self, request, *args, **kwargs):
+        """
+            Кастомный контекст для детальной страницы статьи
+        """
+        # Определение основного контекста
+        context = super().get_context(request, *args, **kwargs)
+
+        # Написание пользовательского контекста
+        context['article'] = self
+
+        return context
 
     class Meta(BaseMaterialPage.Meta):
         verbose_name = "Статья для сайта"
@@ -253,6 +331,7 @@ class VacanciesPage(BaseMaterialPage):
     """
         Модель для вакансий сайта
     """
+    template_name = ""
     pp_name_button = models.CharField("Название для кнопки вакансии", max_length=100, null=True, blank=False)
     pp_url_button = models.URLField("Ссылка для кнопки вакансии", null=True, blank=False)
 
@@ -269,6 +348,21 @@ class VacanciesPage(BaseMaterialPage):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('vacancy_detail', kwargs={'slug': self.slug})
+    
+    def get_preview_template(self, request, mode_name):
+        return f"home/vacancy-detail.html"
+
+    def get_context(self, request, *args, **kwargs):
+        """
+            Кастомный контекст для детальной страницы вакансии
+        """
+        # Определение основного контекста
+        context = super().get_context(request, *args, **kwargs)
+
+        # Написание пользовательского контекста
+        context['vacancy'] = self
+
+        return context
 
     class Meta(BaseMaterialPage.Meta):
         verbose_name = "Вакансия"
