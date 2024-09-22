@@ -83,7 +83,7 @@ class SeoPageMixin(MetadataPageMixin, Page):
         elif name_current_class == 'RubricVacanciesPage':
             self.slug = 'vacancies'
         else:
-            self.slug = slugify(self.seo_title)
+            self.slug = slugify(self.title)
 
         return super().save(*args, **kwargs)
 
