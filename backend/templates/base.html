@@ -34,6 +34,22 @@
     {% if page.seo_keyword %}
         <meta name="keywords" content="{{ page.seo_keyword }}">
     {% endif %}
+
+    {# Подключение Яндекс вебмастер #}
+    {% if seo.yandex_webmaster %}
+      <meta name="yandex-verification" content="{{seo.yandex_webmaster}}" />
+    {% endif %}
+      
+    {# Подключение Google вебмастер #}
+    {% if seo.google_webmaster %}
+      <meta name="google-site-verification" content="{{seo.google_webmaster}}" />
+    {% endif %}
+
+    {% comment %} 
+      После кодов счетчиков и вебмастер кабинетов можно разнести эти параметры
+      {{seo.yandex_metric}}
+      {{seo.google_metric}}
+     {% endcomment %}
 </head>
 
 <body>

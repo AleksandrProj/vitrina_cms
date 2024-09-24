@@ -14,14 +14,17 @@ from home.models import (
     MainBannerSnippet,
 )
 
+from seo.views import SEOViewSet
+
 from backend.utils import get_paginator
 
 
-class MainViewsetMixin(ContextMixin):
+class MainViewsetMixin(SEOViewSet, ContextMixin):
     """
         Главный Viewset для всех представлений
     """
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        seo = SEOViewSet.get_context_data(SEOViewSet(), **kwargs)
         main_banner_queryset = MainBannerSnippet.objects.first()
         kolontituls_queryset = HeaderAndFooterSnippet.objects.first()
         year_page_queryset = datetime.now().year
@@ -30,6 +33,7 @@ class MainViewsetMixin(ContextMixin):
             'main_banner': main_banner_queryset,
             'kolontituls': kolontituls_queryset,
             'year_page': year_page_queryset,
+            'seo': seo
         }
         return context
 
