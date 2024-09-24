@@ -19,8 +19,14 @@
             {% comment %} Блок вакансий {% endcomment %}
             {% if material.block_type == "vacancies" %}
                 <div class="vacancy-card">
-                    {% image material.value.vacancies.image width-400 as vacancy_image%}
-                    <img src="{{vacancy_image.url}}" alt="{{material.value.vacancies.caption_image}}">
+                    {% image material.value.vacancies.image width-400 format-webp-lossless as image_desktop %}
+                    <picture>
+                    <source media="(min-width:640px)"
+                                srcset="{{ image_desktop.url }}"
+                                width="{{ image_desktop.width }}"
+                                height="{{ image_desktop.height }}">
+                    {% image material.value.vacancies.image width-400 format-webp-lossless alt=material.value.vacancies.caption_image loading="lazy" %}
+                    </picture>
                     <div class="vacancy-card-content">
                         <a href="{% url 'vacancy_detail' slug=material.value.vacancies.slug %}">
                             <h2>{{ material.value.vacancies.title }}</h2>
@@ -41,8 +47,18 @@
             {% comment %} Блок статей {% endcomment %}
             {% if material.block_type == "articles" %}
                 <div class="article-card">
-                    {% image material.value.articles.image width-400 as article_image %}
-                    <img src="{{article_image.url}}" alt="{{material.value.articles.caption_image}}">
+                    
+                    <div>
+                        {% image material.value.articles.image height-400 format-webp-lossless as image_desktop %}
+                        <picture>
+                        <source media="(min-width:640px)"
+                                    srcset="{{ image_desktop.url }}"
+                                    width="{{ image_desktop.width }}"
+                                    height="{{ image_desktop.height }}">
+                        {% image material.value.articles.image height-400 format-webp-lossless alt=material.value.articles.caption_image loading="lazy" %}
+                        </picture>
+                    </div>
+                    
                     <div class="article-card-content">
                         <a href="{% url 'article_detail' slug=material.value.articles.slug %}">
                             <h2>{{ material.value.articles.title }}</h2>

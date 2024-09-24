@@ -549,7 +549,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         flex-direction: column;
     }
 
-    .vacancy-card img, .article-card img {
+    .vacancy-card picture, .article-card picture {
         margin: 10px auto;
     }
 

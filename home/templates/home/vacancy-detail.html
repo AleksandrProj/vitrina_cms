@@ -11,8 +11,14 @@
         <div class="detail-page">
             {% comment %} Изображение и заголовок {% endcomment %}
             <div class="vacancy-detail-header">
-                {% image vacancy.image width-400 as vacancy_image  %}
-                <img src="{{vacancy_image.url}}" alt="{{vacancy.caption_image}}">
+                {% image vacancy.image width-900 format-webp-lossless as image_desktop %}
+                <picture>
+                <source media="(min-width:640px)"
+                            srcset="{{ image_desktop.url }}"
+                            width="{{ image_desktop.width }}"
+                            height="{{ image_desktop.height }}">
+                {% image vacancy.image width-400 format-webp-lossless alt=vacancy.caption_image loading="lazy" %}
+                </picture>
                 <h2>
                     {{ vacancy.title }}
                     <div class="public-date">Дата размещения вакансии: {{ vacancy.latest_revision_created_at|date:"d.m.Y" }} {{ vacancy.latest_revision_created_at|date:"H:i" }}</div>
