@@ -45,11 +45,40 @@
       <meta name="google-site-verification" content="{{seo.google_webmaster}}" />
     {% endif %}
 
-    {% comment %} 
-      После кодов счетчиков и вебмастер кабинетов можно разнести эти параметры
-      {{seo.yandex_metric}}
-      {{seo.google_metric}}
-     {% endcomment %}
+    {# Подключение Google Analytics #}
+    {% if seo.google_metric %}
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{seo.google_metric}}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{seo.google_metric}}');
+      </script>
+    {% endif %}
+
+
+    {# Подключение Яндекс метрики #}
+    {% if seo.yandex_metric %}
+      <!-- Yandex.Metrika counter -->
+      <script type="text/javascript" >
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym({{seo.yandex_metric}}, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+      </script>
+      <noscript><div><img src="https://mc.yandex.ru/watch/{{seo.yandex_metric}}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+      <!-- /Yandex.Metrika counter -->      
+    {% endif %}
 </head>
 
 <body>
