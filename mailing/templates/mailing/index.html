@@ -1,0 +1,62 @@
+{% extends "wagtailadmin/generic/base.html" %}
+{% load wagtailadmin_tags i18n %}
+
+{% block titletag %}Подписчики {{ header_title }}{% endblock %}
+
+
+{% block content %}
+    
+    {% block header %}
+
+        {% block main_header %}
+            {% if not breadcrumbs_items %}
+                {% include "wagtailadmin/shared/header.html" with title='Подписчики' icon="user" only %}
+            {% endif %}
+        {% endblock %}
+
+    {% endblock %}
+
+    
+
+    
+    <div class="nice-padding">
+        {% block main_content %}
+        
+            {% if subscribers %}
+                <h4 style="font-weight: bold">Уже подписались: {{paginator.count}} человек</h4>
+            
+                {% for subscribe in subscribers %}
+                <div style="margin: 20px 0">
+                    {{subscribe.id}}: {{subscribe.name}} - {{subscribe.email}}
+                </div>                
+                {% endfor %}
+
+                <div class="pagination">
+                    {% if subscribers.has_previous %}
+                        <a href="?page=1" style="margin-right: 10px">&laquo; В начало</a>
+                        <a href="?page={{ subscribers.previous_page_number }}" style="margin-right: 10px">Назад</a>
+                    {% endif %}
+    
+                    <span class="current">
+                        Страница {{ subscribers.number }} из {{ subscribers.paginator.num_pages }}.
+                    </span>
+    
+                    {% if subscribers.has_next %}
+                        <a href="?page={{ subscribers.next_page_number }}" style="margin-right: 10px">Вперед</a>
+                        <a href="?page={{ subscribers.paginator.num_pages }}" style="margin-right: 10px">В конец &raquo;</a>
+                    {% endif %}
+                </div>
+                
+            {% else %}
+                <div class="nice-padding w-mt-8">
+                    {% block no_results_message %}<p>{% trans "There are no results." %}</p>{% endblock %}
+                </div>
+            {% endif %}
+
+        {% endblock %}
+
+
+    </div>        
+
+{% endblock content %}
+    

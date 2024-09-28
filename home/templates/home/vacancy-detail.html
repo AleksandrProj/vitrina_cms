@@ -3,7 +3,9 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
 {% block meta_tags %}
-    {% meta_tags vacancy %}
+    {% if vacancy %}
+        {% meta_tags vacancy %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}

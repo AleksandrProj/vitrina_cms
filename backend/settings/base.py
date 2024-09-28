@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "custom_user",
     "custom_document",
     "seo",
+    "mailing",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

@@ -3,7 +3,9 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
 {% block meta_tags %}
-    {% meta_tags rubric %}
+    {% if rubric %}
+        {% meta_tags rubric %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}

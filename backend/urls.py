@@ -7,11 +7,17 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 
+from mailing.views import HandleSubscribersView
+
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("media/documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
 
+    path("subscribe/", HandleSubscribersView.as_view(), name="subscribe"),
+    # path("subscribe/success", HandleSubscribersView.as_view(), name="subscribe_success"),
+    path("subscribe/success/<int:subscribe_id>", HandleSubscribersView.as_view(), name="subscribe_success"),
+    path("subscribe/fail", HandleSubscribersView.as_view(), name="subscribe_fail"),
     path("", include("home.urls"))
 ]
 

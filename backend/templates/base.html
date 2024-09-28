@@ -28,7 +28,11 @@
             {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
           </title>
         {% endblock %}
-      {% meta_tags page %}
+      
+      {% if page %}
+        {% meta_tags page %}
+      {% endif %}
+          
     {% endblock %}
 
     {% if page.seo_keyword %}
@@ -94,11 +98,12 @@
             {{main_banner.header|richtext}}
           </div>
           <div class="subscribe-form">
-            {% for form in main_banner.form %}
-              <input type="text" placeholder="{{form.value.name_input}}" />
-              <input type="email" placeholder="{{form.value.email_input}}" />
-              <button>{{form.value.button}}</button>
-            {% endfor %}
+            <form action="{% url 'subscribe' %}" method="post">
+              {% csrf_token %}
+              {{form.name}}
+              {{form.email}}
+              <input id="submit_btn" type="submit" value="Подписаться">
+            </form>
           </div>
         </div>
       </div>

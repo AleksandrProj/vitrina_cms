@@ -11,7 +11,7 @@ from seo.views import SEOAdminView
 
 @hooks.register('register_admin_urls')
 def register_seo_url():
-    """Регистранция SEO URL"""
+    """Регистрация SEO URL"""
 
     return [
         path('seo/', SEOAdminView.as_view(), name='seo'),
@@ -20,6 +20,6 @@ def register_seo_url():
 
 @hooks.register('register_admin_menu_item')
 def register_seo_menu_item():
-    """Регистранция SEO меню в админке"""
+    """Регистрация SEO меню в админке"""
 
     return MenuItem('SEO', reverse('seo'), icon_name='edit')

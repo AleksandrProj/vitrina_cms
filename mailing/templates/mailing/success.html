@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
+
+{% block meta_tags %}
+    {% block title %}
+        <title>
+        Вы успешно подписались на новости и вакансии
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+        </title>
+    {% endblock %}
+
+    {% if page %}
+        {% meta_tags page %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="access-page">
+   <p id="access-status">
+      <strong>{{subscriber.name}}, Вы успешно подписались на наши новости и новые вакансии:</strong> 
+      <br> 
+      Мы на вашу почту <strong class="email-field">{{subscriber.email}}</strong> отправили письмо с подтвержением.
+   </p>
+   <div class="access-page__img">
+       <img src="{% static 'images/access_page.png' %}" alt="">
+   </div> 
+</div>
+{% endblock content %}

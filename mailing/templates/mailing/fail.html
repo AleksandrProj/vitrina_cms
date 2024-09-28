@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
+
+{% block meta_tags %}
+    {% block title %}
+        <title>
+        Ошибка при заполнении формы
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+        </title>
+    {% endblock %}
+
+    {% if page %}
+        {% meta_tags page %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <p id="error-status">
+        <strong>Возникла ошибка при заполнении формы:</strong> 
+        <br> 
+        Такой E-mail уже зарегистрирован
+    </p>
+    <div class="error-page__img">
+        <img src="{% static 'images/fail_page.png' %}" alt="">
+    </div> 
+</div>
+{% endblock content %}
+    

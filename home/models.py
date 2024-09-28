@@ -24,7 +24,6 @@ from home.blocks import (
     ArticlesBlock,
     HeaderBlock,
     FooterBlock,
-    FormBlock,
 )
 
 from backend.utils import get_paginator
@@ -446,17 +445,6 @@ class MainBannerSnippet(models.Model):
         Модель для первого экрана для всего сайта
     """
     header = RichTextField(features=['h1'], verbose_name="Заголовок")
-    form = StreamField([
-        ("form_block", FormBlock())
-    ],
-    use_json_field=True,
-    blank=True,
-    verbose_name = "Блок формы подписки",
-    block_counts = {
-        "form_block": {
-            "max_num": 1
-        }
-    }) 
     cover = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -467,7 +455,7 @@ class MainBannerSnippet(models.Model):
     )
 
     def __str__(self) -> str:
-        return f"Форма подписки для сайта ({self.pk})"
+        return f"Первый экран для сайта ({self.pk})"
 
     class Meta:
         verbose_name = "Блок первого экрана сайта"

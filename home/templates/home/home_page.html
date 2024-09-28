@@ -3,7 +3,9 @@
 {% load static %}
 
 {% block meta_tags %}
-    {% meta_tags page %}
+    {% if page %}
+        {% meta_tags page %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}

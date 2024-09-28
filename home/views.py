@@ -24,6 +24,9 @@ class MainViewsetMixin(SEOViewSet, ContextMixin):
         Главный Viewset для всех представлений
     """
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        from mailing.views import SubscribersViewSet
+        
+        subscriber_form = SubscribersViewSet.get_context_data(SubscribersViewSet(), **kwargs)
         seo = SEOViewSet.get_context_data(SEOViewSet(), **kwargs)
         main_banner_queryset = MainBannerSnippet.objects.first()
         kolontituls_queryset = HeaderAndFooterSnippet.objects.first()
@@ -33,7 +36,8 @@ class MainViewsetMixin(SEOViewSet, ContextMixin):
             'main_banner': main_banner_queryset,
             'kolontituls': kolontituls_queryset,
             'year_page': year_page_queryset,
-            'seo': seo
+            'seo': seo,
+            'form': subscriber_form['form']
         }
         return context
 

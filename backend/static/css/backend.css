@@ -62,10 +62,13 @@ nav ul li a:hover {
 }
 
 .subscribe-form {
+    margin: 20px 0;
+}
+
+.subscribe-form form {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
 }
 
 .subscribe-form input[type="text"],
@@ -74,9 +77,10 @@ nav ul li a:hover {
     margin: 0 5px;
     border: 0;
     border-radius: 5px;
+    font-size: 16px;
 }
 
-.subscribe-form button {
+.subscribe-form #submit_btn {
     padding: 20px;
     background-color: #D6001C;
     color: white;
@@ -85,9 +89,11 @@ nav ul li a:hover {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 25%;
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.subscribe-form button:hover {
+.subscribe-form #submit_btn:hover {
     background-color: rgb(255, 0, 34);
 }
 
@@ -461,6 +467,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     opacity: 0.5;
 }
 
+.access-page h2,
 .error-page h2 {
     text-align: center;
     font-size: 28px;
@@ -469,18 +476,41 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     font-weight: normal;
 }
 
+.access-page strong,
 .error-page strong {
     color: #D6001C;
     text-decoration: underline;
 }
 
+.access-page__img,
 .error-page__img {
     margin: 100px auto;
     text-align: center;
 }
 
+.access-page__img img,
 .error-page__img img {
     width: 500px;
+}
+
+.access-page #access-status,
+.error-page #error-status {
+    text-align: center;
+    margin: 100px;
+    font-size: 30px;
+}
+
+.access-page #access-status strong {
+    color: #12504F;
+}
+
+.access-page #access-status .email-field {
+    color: #000000;
+    text-decoration: none;
+}
+
+.error-page #error-status strong {
+    color: #D6001C;
 }
 
 /* Адаптивные стили */
@@ -493,7 +523,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         flex: 1 1 calc(50% - 20px);
     }
 
-    .subscribe-form {
+    .subscribe-form form {
         flex-direction: column;
     }
 
@@ -503,7 +533,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         width: 100%;
     }
 
-    .subscribe-form button {
+    .subscribe-form #submit_btn {
         width: 100%;
     }
 }
@@ -521,7 +551,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         font-size: 1.5em;
     }
 
-    .subscribe-form {
+    .subscribe-form form {
         flex-direction: column;
     }
 
@@ -531,10 +561,11 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         width: 100%;
     }
 
-    .subscribe-form button {
+    .subscribe-form #submit_btn {
         width: 100%;
     }
 
+    .access-page__img img,
     .error-page__img img {
         width: 80%;
     }
@@ -587,7 +618,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         margin-top: 10px;
     }
 
-    .subscribe-form {
+    .subscribe-form form {
         flex-direction: column;
     }
 
@@ -611,9 +642,11 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         justify-content: center;
     }
 
+    .access-page h2,
     .error-page h2 {
         width: 80%;
     }
+    .access-page__img img,
     .error-page__img img {
         width: 95%;
     }
