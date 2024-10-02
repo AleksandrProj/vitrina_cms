@@ -96,8 +96,10 @@ class SeoPageMixin(MetadataPageMixin, Page):
             self.slug = 'articles'
         elif name_current_class == 'RubricVacanciesPage':
             self.slug = 'vacancies'
+        elif name_current_class == 'HomePage':
+            self.slug = 'home'
         else:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title) if not self.slug else self.slug
 
         return super().save(*args, **kwargs)
 
@@ -261,7 +263,8 @@ class BaseMaterialPage(SeoPageMixin):
     )
     caption_image = models.CharField(
         "Подпись для изображения", max_length=150, blank=False, null=True)
-    
+    is_send_email = models.BooleanField("Флаг отправки email", default=False)
+
     content_panels = SeoPageMixin.content_panels + [
         MultiFieldPanel([
             FieldPanel("title_description_block"),

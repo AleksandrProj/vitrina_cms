@@ -1,5 +1,7 @@
+import httpx
 from typing import Any
 
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -66,8 +68,17 @@ class HandleSubscribersView(View, MainViewsetMixin):
         form = SubscribersForm(request.POST)
         
         if form.is_valid():
+            clean_data_form = form.cleaned_data
             data_form = form.save()
-            # return HttpResponseRedirect(reverse('subscribe_success') + f"?subscribe_id={data_form.id}")        
+
+            if settings.SUBSCRIBE_API_KEY:
+                httpx.get(f'https://api.unisender.com/ru/api/subscribe?format=json&\
+                            api_key={settings.SUBSCRIBE_API_KEY}&\
+                            list_ids={settings.LISTS_SUBSCRIBE}&\
+                            fields[email]={clean_data_form.get("email")}&\
+                            fields[Name]={clean_data_form.get("name")}'
+                        )
+            
             return HttpResponseRedirect(reverse('subscribe_success', kwargs={'subscribe_id': data_form.id}))        
         else:
             return HttpResponseRedirect(reverse('subscribe_fail'))

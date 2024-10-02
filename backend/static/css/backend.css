@@ -316,6 +316,36 @@ main .detail-page {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.left-image-page,
+.right-image-page,
+.center-image-page,
+.fullwidth-image-page {
+    display: block;
+}
+
+.left-image-page {
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto 0 0;
+}
+
+.right-image-page {
+    max-width: 80%;
+    height: auto;
+    margin: 0 0 0 auto;
+}
+
+.center-image-page {
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.fullwidth-image-page {
+    max-width: 100%;
+    height: auto;
+}
+
 main .article-detail-page {
     max-width: 1200px;
 }
@@ -342,7 +372,7 @@ main .article-detail-page {
     margin-bottom: 20px;
 }
 
-.vacancy-detail-header img {
+.vacancy-detail-header picture img {
     height: 80px;
     width: 80px;
     object-fit: cover;
@@ -628,7 +658,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         width: 100%;
     }
 
-    main.detail-page {
+    main .detail-page {
         margin-top: -60px;
     }
 

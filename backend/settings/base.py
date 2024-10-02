@@ -24,6 +24,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "default-key")
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 IS_SHOW_TOOLBAR=str_to_bool(os.environ.get("IS_SHOW_TOOLBAR", "True"))
 
+# Unisender data
+UNISENDER_URL = 'https://api.unisender.com/ru/api'
+SUBSCRIBE_API_KEY = os.environ.get("UNISENDER_API_KEY", None)
+LISTS_SUBSCRIBE = os.environ.get("LIST_SUBSCRIBE", "3,4")
+
 # Settings CORS
 CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_HOST", "http://127.0.0.1").split(" ")
 CORS_ALLOW_CREDENTIALS = True
@@ -208,7 +213,9 @@ STORAGES = {
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "Vitrina vacancies"
+WAGTAIL_SITE_NAME = os.environ.get('SITE_NAME')
+
+WAGTAIL_APPEND_SLASH = False
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -220,7 +227,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = os.environ.get('ADMIN_URL')
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk
@@ -229,6 +236,7 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 WAGTAILDOCS_EXTENSIONS = ['pdf']
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 
 # Custom models
 AUTH_USER_MODEL = 'custom_user.CustomUser'

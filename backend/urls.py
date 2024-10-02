@@ -15,7 +15,6 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),
 
     path("subscribe/", HandleSubscribersView.as_view(), name="subscribe"),
-    # path("subscribe/success", HandleSubscribersView.as_view(), name="subscribe_success"),
     path("subscribe/success/<int:subscribe_id>", HandleSubscribersView.as_view(), name="subscribe_success"),
     path("subscribe/fail", HandleSubscribersView.as_view(), name="subscribe_fail"),
     path("", include("home.urls"))
