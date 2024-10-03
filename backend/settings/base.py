@@ -133,11 +133,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME") or "vitrina_vacancies",
-        "USER": os.environ.get("DB_USER") or "root",
-        "PASSWORD": os.environ.get("DB_PASSWORD") or "root",
-        "HOST": os.environ.get("DB_HOST") or "vv_db",
-        "PORT": os.environ.get("DB_PORT") or 5432,
+        "NAME": os.environ.get("DB_NAME", "vitrina_vacancies"),
+        "USER": os.environ.get("DB_USER", "root"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "root"),
+        "HOST": os.environ.get("DB_HOST", "vv_db"),
+        "PORT": os.environ.get("DB_PORT", 5432),
         "CONN_MAX_AGE": 60,
         "CONN_HEALTH_CHECK": True
     }
@@ -213,7 +213,7 @@ STORAGES = {
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = os.environ.get('SITE_NAME')
+WAGTAIL_SITE_NAME = os.environ.get('SITE_NAME', 'Витрина вакансий')
 
 WAGTAIL_APPEND_SLASH = False
 
@@ -227,7 +227,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = os.environ.get('ADMIN_URL')
+WAGTAILADMIN_BASE_URL = os.environ.get('ADMIN_URL', 'http://localhost:8000')
 
 # Allowed file extensions for documents in the document library.
 # This can be omitted to allow all files, but note that this may present a security risk

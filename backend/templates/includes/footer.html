@@ -24,7 +24,7 @@
                         <a target="_blank" href="{{policy.value.document_block.url}}">{{policy.value.name_block}}</a>
                     {% endfor %}
 
-                    <a href="#">{{footer.value.sitemap}}</a>
+                    <a href="{% url 'sitemap' %}">Карта сайта</a>
                 </p>
             {% endfor %}
         </div>

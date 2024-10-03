@@ -34,6 +34,6 @@ urlpatterns = [
     path("vacancies/", VacanciesListViewset.as_view(), name="vacancies"),
     path("vacancies/<slug:slug>", VacanciesDetailViewset.as_view(), name="vacancy_detail"),
     path("robots.txt", RobotsView.as_view(), name="robots"),
-    path("sitemap.xml", sitemap, {'sitemaps': sitemaps}),
+    path("sitemap.xml", sitemap, {'sitemaps': sitemaps}, name="sitemap"),
     path("", HomePageViewset.as_view(), name="home"),
 ]
