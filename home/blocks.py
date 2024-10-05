@@ -147,7 +147,6 @@ class FooterBlock(blocks.StructBlock):
         Блок подвала сайта
     """
     copyright = blocks.CharBlock(required=True, max_length=250, label="Копирайт для сайта")
-    policy_block = PolicyBlock(label="Блок юридических документов")  
     menu = MenuBlock(required=False, label="Меню сайта")
 
     class Meta:

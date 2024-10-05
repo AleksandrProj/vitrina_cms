@@ -425,12 +425,37 @@ class HeaderAndFooterSnippet(models.Model):
             "max_num": 1
         }
     })
+    privacy_policy_document = models.ForeignKey(
+        get_document_model(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Документ политики конфидициальности",
+        related_name="+"
+    )
+    policy_personal_document = models.ForeignKey(
+        get_document_model(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Документ обработки персональных данных",
+        related_name="+"
+    )
     agreement_document = models.ForeignKey(
         get_document_model(),
         null=True,
         blank=False,
         on_delete=models.SET_NULL,
-        verbose_name="Документ согласия на обработку данных"
+        verbose_name="Документ согласия на обработку данных",
+        related_name="+"
+    )
+    cookie_document = models.ForeignKey(
+        get_document_model(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Документ обработки cookie",
+        related_name="+"
     )
 
     panels = [
@@ -440,7 +465,12 @@ class HeaderAndFooterSnippet(models.Model):
         ]),
         FieldPanel('header'),
         FieldPanel('footer'),
-        FieldPanel('agreement_document')
+        MultiFieldPanel([
+            FieldPanel('privacy_policy_document'),
+            FieldPanel('policy_personal_document'),
+            FieldPanel('agreement_document'),
+            FieldPanel('cookie_document'),
+        ])
     ]
 
     def __str__(self) -> str:

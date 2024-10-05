@@ -113,7 +113,14 @@
     {% endblock %}
 
     {% include 'includes/footer.html' %}
-
+	
+    <div class="cookie_notice">
+      Наш сайт использует cookie. Более подробная информация находится в <a href="{{kolontituls.privacy_policy_document.url}}"><strong>политике конфиденциальности</strong></a> и <a href="{{kolontituls.cookie_document.url}}"><strong>правилах обработки cookie</strong></a>. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.
+      <div>
+          <a class="cookie_btn" id="cookie_close" href="#close">Хорошо</a>
+      </div>
+    </div>
+    <script src="{% static 'js/handle-cookies.js' %}"></script>
 </body>
 
 </html>

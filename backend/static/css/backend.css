@@ -310,6 +310,8 @@ footer a {
     color: grey;
     text-decoration: none;
     margin: 5px;
+    font-size: 12px;
+    line-height: 10px;
 }
 
 footer .logo {
@@ -557,6 +559,65 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     color: #D6001C;
 }
 
+/* COOKIE */
+.cookie_notice {
+	display: none;
+	position: fixed;
+	z-index: 9999999;
+	bottom: 30px;
+	left: 30px;
+	text-align: center;
+	font-size: 14px;
+	font-family: Verdana, sans-serif;  
+	color: #000;
+	background: #FFF;
+	padding: 30px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,51,153,.04),0 2px 2px rgba(0,51,153,.08);
+    width: 360px;
+}
+/* Оформление кнопок */
+.cookie_btn {
+	display: inline-block;
+	margin: 10px 6px 4px 6px;
+	text-decoration: none;
+	position: relative;
+	font-size: 13px;
+	padding: 10px;
+	color: #FFF;
+	font-weight: bold;
+	text-transform: uppercase; 
+	background: #12504F;
+	border: 2px solid #BFE2FF;
+    width: 80%;
+}
+.cookie_btn:hover {
+	color: #FFF;
+}
+.cookie_btn:after,
+.cookie_btn:before {
+	position: absolute;
+	height: 2px;
+	left: 50%;
+	background: #FFF;
+	bottom: -6px;
+	content: "";
+	transition: all 280ms ease-in-out;
+	width: 0;
+}
+.cookie_btn:before {
+	top: -6px;
+}
+.cookie_btn:hover:after,
+.cookie_btn:hover:before {
+	width: 100%;
+	left: 0;
+}
+
+.cookie_notice a {
+    text-decoration: underline;
+}
+
 /* Адаптивные стили */
 @media (max-width: 1024px) {
     .intro h1 {
@@ -612,6 +673,13 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     .access-page__img img,
     .error-page__img img {
         width: 80%;
+    }
+
+    .cookie_notice {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 250px;
     }
 }
 
