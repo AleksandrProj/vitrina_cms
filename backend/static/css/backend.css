@@ -97,6 +97,20 @@ nav ul li a:hover {
     background-color: rgb(255, 0, 34);
 }
 
+.subscribe-form form #agreement-field {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    color: #ffffff;
+    width: 100%;
+    text-align: center;
+}
+
+.subscribe-form form #agreement-field a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 main {
     position: relative;
     max-width: 1200px;
@@ -656,6 +670,9 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     .subscribe-form input[type="email"] {
         margin: 10px 0;
         width: 100%;
+    }
+    .subscribe-form form #agreement-field {
+        bottom: -50px;
     }
 
     main .detail-page {

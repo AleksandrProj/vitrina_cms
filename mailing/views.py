@@ -66,7 +66,6 @@ class HandleSubscribersView(View, MainViewsetMixin):
             Обработка формы подписки на сайте
         """
         form = SubscribersForm(request.POST)
-        
         if form.is_valid():
             clean_data_form = form.cleaned_data
             data_form = form.save()

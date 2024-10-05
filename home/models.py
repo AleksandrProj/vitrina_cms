@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
+from wagtail.documents import get_document_model
 from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
@@ -424,6 +425,13 @@ class HeaderAndFooterSnippet(models.Model):
             "max_num": 1
         }
     })
+    agreement_document = models.ForeignKey(
+        get_document_model(),
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        verbose_name="Документ согласия на обработку данных"
+    )
 
     panels = [
         MultiFieldPanel([
@@ -432,6 +440,7 @@ class HeaderAndFooterSnippet(models.Model):
         ]),
         FieldPanel('header'),
         FieldPanel('footer'),
+        FieldPanel('agreement_document')
     ]
 
     def __str__(self) -> str:
