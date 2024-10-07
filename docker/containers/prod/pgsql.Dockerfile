@@ -1,0 +1,11 @@
+FROM postgres:alpine
+
+ARG USER_ID
+ENV USER_ID ${USER_ID}
+
+ARG GROUP_ID
+ENV GROUP_ID ${GROUP_ID}
+
+RUN apk --no-cache add shadow
+RUN groupmod -g $USER_ID postgres
+RUN usermod -u $USER_ID postgres

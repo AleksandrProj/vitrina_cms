@@ -32,7 +32,7 @@ RUN groupadd -g $GROUP_ID vv_user \
 COPY ./pyproject.toml ./poetry.lock ./
 RUN poetry install --no-root
 
-COPY ./docker/entrypoint.sh /entrypoint.sh
+COPY ./docker/containers/dev/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Use user "vv_user" to run the build commands below and the server itself.

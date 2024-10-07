@@ -2,11 +2,10 @@ services:
   # WEB service
   web:
     container_name: ${PROJECT_PREFIX}_backend
-    env_file:
-      - .env
+    env_file: "./containers/dev/.env_dev"
     build:
       context: ../
-      dockerfile: ./docker/containers/web.Dockerfile
+      dockerfile: ./docker/containers/dev/web.Dockerfile
       args:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
@@ -21,11 +20,10 @@ services:
   # PostgreSQL
   pgsql:
     container_name: ${PROJECT_PREFIX}_pgsql
-    env_file:
-      - .env
+    env_file: "./containers/dev/.env_dev"
     build:
       context: .
-      dockerfile: ./containers/pgsql.Dockerfile
+      dockerfile: ./containers/dev/pgsql.Dockerfile
       args:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
