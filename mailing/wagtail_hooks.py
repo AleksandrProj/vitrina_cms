@@ -30,8 +30,7 @@ def after_publish_page(request, page):
     """
         Hooks для публикации страниц
     """
-    if  not page.is_send_email and isinstance(page, ArticlesPage|VacanciesPage):   
-        #TODO: Этот код необходимо отрефакторить  
+    if  isinstance(page, ArticlesPage|VacanciesPage) and not page.is_send_email:
         payload = {
             'format': 'json',
             'api_key': settings.SUBSCRIBE_API_KEY,
@@ -70,23 +69,23 @@ def after_publish_page(request, page):
         # TODO: Настроить логгирование 
         print('create message', create_message_res.json())
         
-        # Отправка нового сообщения
-        if create_message_res.status_code == 200:
-            send_message_payload = copy.copy(payload)
+        # # Отправка нового сообщения
+        # if create_message_res.status_code == 200:
+        #     send_message_payload = copy.copy(payload)
 
-            message = create_message_res.json()
-            send_message_payload.update({
-                "message_id": message['result']['message_id'],
-                "track_read": 1,
-            })
+        #     message = create_message_res.json()
+        #     send_message_payload.update({
+        #         "message_id": message['result']['message_id'],
+        #         "track_read": 1,
+        #     })
 
-            send_message_res = httpx.post(f'{settings.UNISENDER_URL}/createCampaign', data=send_message_payload)
+        #     send_message_res = httpx.post(f'{settings.UNISENDER_URL}/createCampaign', data=send_message_payload)
             
-            print('send message', send_message_res.json())
+        #     print('send message', send_message_res.json())
 
-            # Отмечаем что рассылка на данный материал была создана
-            page.is_send_email = True
-            page.save()
+        #     # Отмечаем что рассылка на данный материал была создана
+        #     page.is_send_email = True
+        #     page.save()
 
 
 @hooks.register('register_admin_urls')

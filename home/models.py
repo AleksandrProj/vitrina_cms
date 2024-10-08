@@ -1,3 +1,5 @@
+import re
+
 from datetime import datetime
 
 from django.db import models
@@ -93,6 +95,7 @@ class SeoPageMixin(MetadataPageMixin, Page):
         
         if not self.seo_title:
             self.seo_title = self.title
+
         if name_current_class == 'RubricArticlesPage':
             self.slug = 'articles'
         elif name_current_class == 'RubricVacanciesPage':
@@ -100,7 +103,10 @@ class SeoPageMixin(MetadataPageMixin, Page):
         elif name_current_class == 'HomePage':
             self.slug = 'home'
         else:
-            self.slug = slugify(self.title) if not self.slug else self.slug
+            if self.slug:
+                self.slug = self.slug if not re.search('[а-яА-Я]', self.slug) else slugify(self.title)
+            elif not self.slug:
+                self.slug = slugify(self.title)
 
         return super().save(*args, **kwargs)
 
@@ -250,7 +256,7 @@ class BaseMaterialPage(SeoPageMixin):
     """
         Базовая модель для материалов сайта
     """
-    title_description_block = models.CharField("Название блока для описания", max_length=150, null=True, blank=False)
+    title_description_block = models.CharField("Название блока для описания", max_length=150, null=True, blank=True, default="Описание", editable=False)
     description = RichTextField("Описание материала")
     short_description = models.CharField("Краткое описание материала", max_length=300, null=True, blank=False)
     image = models.ForeignKey(
@@ -268,7 +274,6 @@ class BaseMaterialPage(SeoPageMixin):
 
     content_panels = SeoPageMixin.content_panels + [
         MultiFieldPanel([
-            FieldPanel("title_description_block"),
             FieldPanel("short_description"),
             FieldPanel("description"),
         ], heading="Блок описания"),

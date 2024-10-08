@@ -31,7 +31,9 @@
                     <div class="vacancy-card-content">
                         <h2>{{ page.title }}</h2>
                         {% for element in page.elements_vacancy.all %}
-                            <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                            {% if element.element.name == 'Зарплата' %}
+                                <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
+                            {% endif %}
                         {% endfor %}
                         <div>{{page.short_description}}</div>                        
                         <a href="{% url 'vacancy_detail' slug=page.slug %}" class="more-button">Подробнее о вакансии</a>
