@@ -3,6 +3,7 @@ services:
   web:
     container_name: ${PROJECT_PREFIX}_backend
     env_file: "./containers/prod/.env_prod"
+    # restart: always
     build:
       context: ../
       dockerfile: ./docker/containers/prod/web.Dockerfile
@@ -10,7 +11,8 @@ services:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
     volumes:
-      - ..:/app    
+      - ../static:/app/static
+      - ../media:/app/media
     ports:
-      - ${HTTP_PORT}:8000
+      - ${HTTP_PORT}:8010
       - ${DEBUG_PORT}:3000
