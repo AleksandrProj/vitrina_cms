@@ -22,7 +22,6 @@ RUN pip install -U pip \
     && pip install poetry==1.8.3 \
     && poetry config virtualenvs.create false
 
-
 ENV APP_HOME=/app
 
 RUN groupadd -g $GROUP_ID vv_user \
@@ -30,7 +29,7 @@ RUN groupadd -g $GROUP_ID vv_user \
     && mkdir -p ${APP_HOME} \
     && mkdir -p ${APP_HOME}/static \
     && mkdir -p ${APP_HOME}/media \
-    && chown vv_user:vv_user ${APP_HOME}
+    && chown -R vv_user:vv_user ${APP_HOME}
 
 # Install the project requirements.
 COPY ./pyproject.toml ./poetry.lock ./
