@@ -688,7 +688,10 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 }
 
 @media (max-width: 480px) {
-    .itro {
+    .second-block {
+        min-height: 85vh;
+    }
+    .intro {
         margin-bottom: -18px;
     }
     
@@ -744,7 +747,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
     .subscribe-form input[type="text"],
     .subscribe-form input[type="email"] {
-        margin: 5px 0;
+        margin: 10px 0;
         width: 100%;
     }
     .subscribe-form form #agreement-field {
@@ -776,5 +779,8 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
     main.detail-page-block {
         margin: auto;
+    }
+    main .detail-page {
+        margin-top: 0;
     }
 }
