@@ -648,6 +648,12 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 }
 
 @media (max-width: 768px) {
+    .second-block {
+        min-height: 100vh;
+    }
+    .intro {
+        margin-bottom: 0;
+    }
     .intro h1 {
         font-size: 3em;
     }
@@ -684,6 +690,13 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         right: 0;
         margin: 0 auto;
         width: 250px;
+    }
+
+    main.detail-page-block {
+        margin-top: -40px;
+    }
+    .subscribe-form form #agreement-field {
+        margin-top: 10px;
     }
 }
 
@@ -751,7 +764,7 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
         width: 100%;
     }
     .subscribe-form form #agreement-field {
-        bottom: -50px;
+        margin-top: 10px;
     }
 
     main .detail-page {
