@@ -641,6 +641,10 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
     .subscribe-form #submit_btn {
         width: 100%;
     }
+
+    .subscribe-form form #agreement-field {
+        position: inherit;
+    }
 }
 
 @media (max-width: 768px) {
