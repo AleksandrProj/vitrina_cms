@@ -1,20 +1,39 @@
-{% extends "base.html" %}
-{% load static %}
+{% load static wagtailcore_tags wagtailuserbar %}
 {% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
-{# Meta tags page #}
-{% block meta_tags %}
-    {% block title %}
-    <title>Страница не найдена</title>
-    {% endblock %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
 
-{% block content %}
-<div class="error-page">
-    <div class="error-page__img">
-        <img src="{% static 'images/404-error-page.png' %}" alt="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/backend.css' %}">
+
+    {# Add favicon #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+
+    <title>
+        {% wagtail_site as current_site %}
+        Страница не найдена
+        {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+    </title>
+
+</head>
+
+<body>
+
+    <div class="error-page">
+        <div class="error-page__img">
+            <img src="{% static 'images/404-error-page.png' %}" alt="">
+        </div>
+        <h2>Мы не нашли такую страницу на сайте. <br> <a href="{% url 'home' %}"><strong>Вернитесь назад</strong></a> и попробуйте снова.</h2>
     </div>
-    <h2>Мы не нашли такую страницу на сайте. <br> <strong>Вернитесь назад</strong> и попробуйте снова.</h2>
-</div>
+	
+</body>
 
-{% endblock %}
+</html>
