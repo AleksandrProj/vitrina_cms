@@ -34,6 +34,9 @@ CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_HOST", "http://127.0.0.1").s
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = (*default_headers,)
 
+# Settings CSRF
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_ORIGIN_HOST", "http://127.0.0.1").split(" ")
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
