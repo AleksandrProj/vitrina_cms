@@ -1,8 +1,10 @@
 from .base import *
 
+from backend.utils import show_toolbar
+
+
 DEBUG = False
 
-try:
-    from .local import *
-except ImportError:
-    pass
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}
