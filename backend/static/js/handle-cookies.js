@@ -16,7 +16,7 @@ if (cookiecook != "no") {
 		cookiewin.style.display="none";	
 		// записываем cookie на 1 день, с которой мы не показываем окно
 		let date = new Date;
-		date.setDate(date.getDate() + 1);	
+		date.setDate(date.getDate() + 365);	
 		document.cookie = "cookiecook=no; path=/; expires=" + date.toUTCString();	   		
 	});
 }
