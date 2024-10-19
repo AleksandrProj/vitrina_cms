@@ -16,7 +16,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
-
     {# Meta tags page #}
     {% block meta_tags %}
       {% block title %}
@@ -27,7 +26,7 @@
             {% wagtail_site as current_site %}
             {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
           </title>
-        {% endblock %}
+      {% endblock %}
       
       {% if page %}
         {% meta_tags page %}

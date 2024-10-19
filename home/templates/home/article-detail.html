@@ -3,6 +3,15 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 
 {% block meta_tags %}
+        {% block title %}
+            <title>
+                {% if article.seo_title %}{{ article.seo_title }}{% else %}{{ article.title }}{% endif %}
+                {% endblock %}
+                {% block title_suffix %}
+                {% wagtail_site as current_site %}
+                {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            </title>
+        {% endblock %}
     {% if article %}
       {% meta_tags article %}
     {% endif %}
