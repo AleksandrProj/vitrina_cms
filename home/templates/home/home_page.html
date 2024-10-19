@@ -2,12 +2,6 @@
 {% load wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 {% load static %}
 
-{% block meta_tags %}
-    {% if page %}
-        {% meta_tags page %}
-    {% endif %}
-{% endblock %}
-
 {% block content %}
 <main> 
     {% for block_homepage in page.body %}

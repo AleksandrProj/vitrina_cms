@@ -50,7 +50,7 @@ class SeoPageMixin(MetadataPageMixin, Page):
     seo_title_footer = models.CharField(
         "Заголовок нижнего SEO блока", max_length=200, blank=False, null=False)
     seo_description_footer = models.TextField(
-        "Заголовок нижнего SEO блока", blank=False, null=False)
+        "Описание нижнего SEO блока", blank=False, null=False)
     search_image = models.ForeignKey(
         get_image_model_string(),
         null=True,

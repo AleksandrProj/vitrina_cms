@@ -16,7 +16,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
-
     {# Meta tags page #}
     {% block meta_tags %}
       {% block title %}
@@ -27,7 +26,7 @@
             {% wagtail_site as current_site %}
             {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
           </title>
-        {% endblock %}
+      {% endblock %}
       
       {% if page %}
         {% meta_tags page %}
@@ -103,7 +102,7 @@
               {{form.name}}
               {{form.email}}
               <input id="submit_btn" type="submit" value="Подписаться">
-              <div id="agreement-field">{{form.agreement}} Я <a href="{{kolontituls.agreement_document.url}}" target="__blank">согласен на обработку персональных данных</a></div>
+              <div id="agreement-field">{{form.agreement}} Я <a href="{{kolontituls.agreement_document.file.url}}" target="__blank">согласен на обработку персональных данных</a></div>
             </form>
           </div>
         </div>
@@ -115,7 +114,7 @@
     {% include 'includes/footer.html' %}
 	
     <div class="cookie_notice">
-      Наш сайт использует cookie. Более подробная информация находится в <a href="{{kolontituls.privacy_policy_document.url}}" target="__blank"><strong>политике конфиденциальности</strong></a> и <a href="{{kolontituls.cookie_document.url}}" target="__blank"><strong>правилах обработки cookie</strong></a>. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.
+      Наш сайт использует cookie. Более подробная информация находится в <a href="{{kolontituls.privacy_policy_document.file.url}}" target="__blank"><strong>политике конфиденциальности</strong></a> и <a href="{{kolontituls.cookie_document.file.url}}" target="__blank"><strong>правилах обработки cookie</strong></a>. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.
       <div>
           <a class="cookie_btn" id="cookie_close" href="#close">Хорошо</a>
       </div>
