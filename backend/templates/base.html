@@ -102,7 +102,7 @@
               {{form.name}}
               {{form.email}}
               <input id="submit_btn" type="submit" value="Подписаться">
-              <div id="agreement-field">{{form.agreement}} Я <a href="{{kolontituls.agreement_document.url}}" target="__blank">согласен на обработку персональных данных</a></div>
+              <div id="agreement-field">{{form.agreement}} Я <a href="{{kolontituls.agreement_document.file.url}}" target="__blank">согласен на обработку персональных данных</a></div>
             </form>
           </div>
         </div>
@@ -114,7 +114,7 @@
     {% include 'includes/footer.html' %}
 	
     <div class="cookie_notice">
-      Наш сайт использует cookie. Более подробная информация находится в <a href="{{kolontituls.privacy_policy_document.url}}" target="__blank"><strong>политике конфиденциальности</strong></a> и <a href="{{kolontituls.cookie_document.url}}" target="__blank"><strong>правилах обработки cookie</strong></a>. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.
+      Наш сайт использует cookie. Более подробная информация находится в <a href="{{kolontituls.privacy_policy_document.file.url}}" target="__blank"><strong>политике конфиденциальности</strong></a> и <a href="{{kolontituls.cookie_document.file.url}}" target="__blank"><strong>правилах обработки cookie</strong></a>. Продолжая использовать наш сайт, вы автоматически соглашаетесь с использованием данных технологий.
       <div>
           <a class="cookie_btn" id="cookie_close" href="#close">Хорошо</a>
       </div>
