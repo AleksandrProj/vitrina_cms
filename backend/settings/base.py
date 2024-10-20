@@ -242,6 +242,26 @@ WAGTAILDOCS_EXTENSIONS = ['pdf']
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    'default': {
+        'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
+        'OPTIONS': {
+            'features': [
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                'ol', 'ul',
+                'hr',
+                'bold', 'italic', 
+                'link', 
+                'document-link',
+                'image',
+                'code',
+                'superscript', 'subscript', 'strikethrough',
+                'blockquote'
+                ]
+        }
+    }
+}
+
 
 # Custom models
 AUTH_USER_MODEL = 'custom_user.CustomUser'
