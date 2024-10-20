@@ -66,17 +66,36 @@ class HandleSubscribersView(View, MainViewsetMixin):
             Обработка формы подписки на сайте
         """
         form = SubscribersForm(request.POST)
-        if form.is_valid():
+
+        # Проверяем что в БД нет пользователя с таким email
+        if form.is_valid():                
             clean_data_form = form.cleaned_data
             data_form = form.save()
-
+            
             if settings.SUBSCRIBE_API_KEY:
-                httpx.get(f'https://api.unisender.com/ru/api/subscribe?format=json&\
-                            api_key={settings.SUBSCRIBE_API_KEY}&\
-                            list_ids={settings.LISTS_SUBSCRIBE}&\
-                            fields[email]={clean_data_form.get("email")}&\
-                            fields[Name]={clean_data_form.get("name")}'
-                        )
+                is_contact_query_data = {
+                    'api_key': settings.SUBSCRIBE_API_KEY,
+                    'email': clean_data_form.get("email"),
+                    'list_ids': settings.LISTS_SUBSCRIBE,
+                    'condition': 'and',
+                }
+
+                is_exists_contact_res = httpx.get(f'{settings.UNISENDER_URL}/isContactInLists', params=is_contact_query_data)
+
+                print('check contact in Unisender', is_exists_contact_res.json())
+
+                # Проверяем что в сервисе рассылок нет пользователя с таким email
+                if not is_exists_contact_res.json()['result']:
+                    subscribe_query_data = {
+                        'format': 'json',
+                        'api_key': settings.SUBSCRIBE_API_KEY,
+                        'list_ids': settings.LISTS_SUBSCRIBE,
+                        'fields[email]': clean_data_form.get("email"),
+                        'fields[Name]': clean_data_form.get("name"),
+                    }
+                    subscribe_contact = httpx.get(f'{settings.UNISENDER_URL}/subscribe', params=subscribe_query_data)
+
+                    print('check subscribe contact in Unisender', subscribe_contact.json())
             
             return HttpResponseRedirect(reverse('subscribe_success', kwargs={'subscribe_id': data_form.id}))        
         else:
