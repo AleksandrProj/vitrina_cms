@@ -30,16 +30,22 @@
             {% for page in pages %}                    
                 <div class="article-card">
                     {% image page.image min-300x300 format-webp-lossless as image_desktop %}
-                    <picture>
-                    <source media="(min-width:640px)"
-                                srcset="{{ image_desktop.url }}"
-                                width="{{ image_desktop.width }}"
-                                height="{{ image_desktop.height }}">
-                    {% image page.image height-400 format-webp-lossless alt=page.caption_image loading="lazy" %}
-                    </picture>                
-                    <h2>{{ page.title }}</h2>
-                    <p>{{ page.short_description }}</p>
-                    <a href="{% url 'article_detail' slug=page.slug %}" class="more-button">Читать статью</a>
+                    <a href="{% url 'article_detail' slug=page.slug %}">
+                        <picture>
+                        <source media="(min-width:640px)"
+                                    srcset="{{ image_desktop.url }}"
+                                    width="{{ image_desktop.width }}"
+                                    height="{{ image_desktop.height }}">
+                        {% image page.image height-400 format-webp-lossless alt=page.caption_image loading="lazy" %}
+                        </picture>         
+                    </a>
+                    <div class="article-card-content">  
+                        <a href="{% url 'article_detail' slug=page.slug %}">
+                            <h2>{{ page.title }}</h2>
+                        </a>     
+                        <p>{{ page.short_description }}</p>
+                        <a href="{% url 'article_detail' slug=page.slug %}" class="more-button">Читать статью</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
