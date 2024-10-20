@@ -42,30 +42,25 @@
 
             {% comment %} Блок статей {% endcomment %}
             {% if material.block_type == "articles" %}
-                <div class="article-card">
-                    
+                <div class="article-card">                    
                     <div>
                         {% image material.value.articles.image height-400 format-webp-lossless as image_desktop %}
-                        <picture>
-                        <source media="(min-width:640px)"
-                                    srcset="{{ image_desktop.url }}"
-                                    width="{{ image_desktop.width }}"
-                                    height="{{ image_desktop.height }}">
-                        {% image material.value.articles.image height-400 format-webp-lossless alt=material.value.articles.caption_image loading="lazy" %}
-                        </picture>
+                        <a href="{% url 'article_detail' slug=material.value.articles.slug %}">
+                            <picture>
+                            <source media="(min-width:640px)"
+                                        srcset="{{ image_desktop.url }}"
+                                        width="{{ image_desktop.width }}"
+                                        height="{{ image_desktop.height }}">
+                            {% image material.value.articles.image height-400 format-webp-lossless alt=material.value.articles.caption_image loading="lazy" %}
+                            </picture>
+                        </a>
                     </div>
                     
                     <div class="article-card-content">
                         <a href="{% url 'article_detail' slug=material.value.articles.slug %}">
                             <h2>{{ material.value.articles.title }}</h2>
                         </a>    
-
-                        {% for element in material.value.articles.elements_material.all %}
-                            <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
-                        {% endfor %}
-
                         <p>{{ material.value.articles.short_description }}</p>
-
                         <a href="{% url 'article_detail' slug=material.value.articles.slug %}" class="more-button">Читать статью</a>
                     </div>
                 </div>

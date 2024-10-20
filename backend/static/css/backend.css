@@ -195,7 +195,7 @@ main {
 }
 
 .article-card {
-    display: block;
+    display: flex;
 }
 
 .vacancy-card:hover, .article-card:hover {
@@ -213,6 +213,11 @@ main {
 
 .vacancy-card-content, .article-card-content {
     flex-grow: 1;
+}
+
+.article-card-content {
+    margin-left: 20px;
+    position: relative;
 }
 
 .vacancy-card h2, .article-card h2 {
@@ -261,6 +266,12 @@ main {
 
 .vacancy-card a.button:hover {
     background-color: rgb(255, 0, 34);
+}
+
+.article-card a.more-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .all-job-btn-block {
@@ -507,7 +518,8 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 }
 
 .article-card img {
-    width: 100%;
+    width: 400px;
+    height: 400px;
 }
 
 .article-card p {
@@ -674,6 +686,19 @@ main.articles-page-block h3, main.vacancies-page-block h3 {
 
     .vacancy-card, .article-card {
         flex: 1 1 calc(50% - 20px);
+    }
+
+    .article-card {
+        display: block;
+    }
+
+    .article-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .article-card a.more-button {
+        position: relative;
     }
 
     .subscribe-form form {
