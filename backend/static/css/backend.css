@@ -23,6 +23,13 @@ h2 {
     margin-bottom: 0;
 }
 
+blockquote {
+    background-color: #1a7876;
+    color: #ffffff;
+    padding: 20px;
+    border-left: 6px solid #0b3332;
+}
+
 a {
     text-decoration: none;
 }
@@ -401,9 +408,50 @@ main .article-detail-page {
 }
 
 .vacancy-detail-header h2, .article-detail-header h2 {
-    font-size: 2em;
+    font-size: 4em;
+    line-height: 1.2em;
     color: #12504F;
-    margin: 0;
+    overflow-wrap: break-word;
+}
+
+.vacancy-description h1, .article-description h1,
+.vacancy-description h2, .article-description h2,
+.vacancy-description h3, .article-description h3,
+.vacancy-description h4, .article-description h4,
+.vacancy-description h5, .article-description h5,
+.vacancy-description h6, .article-description h6 {
+    color: #000000;
+    margin: 20px auto;
+}
+
+.vacancy-description h1, .article-description h1 {
+    font-size: 3em;   
+    line-height: 0.9em; 
+}
+
+.vacancy-description h2, .article-description h2 {
+    font-size: 1.5em;
+    line-height: 1em;
+}
+
+.vacancy-description h3, .article-description h3 {
+    font-size: 1.5em;
+    line-height: 1.4em;
+}
+
+.vacancy-description h4, .article-description h4 {
+    font-size: 1.2em;
+    line-height: 1.1em;
+}
+
+.vacancy-description h5, .article-description h5 {
+    font-size: 1.0em;
+    line-height: 0.9em;
+}
+
+.vacancy-description h6, .article-description h6 {
+    font-size: 0.8em;
+    line-height: 0.8em;
 }
 
 .vacancy-detail-info {

@@ -48,13 +48,13 @@ class SeoPageMixin(MetadataPageMixin, Page):
     seo_site = models.CharField(
         "SEO сайт", max_length=255, blank=True, null=False)
     seo_title_footer = models.CharField(
-        "Заголовок нижнего SEO блока", max_length=200, blank=False, null=False)
+        "Заголовок нижнего SEO блока", max_length=200, blank=True, null=False)
     seo_description_footer = models.TextField(
-        "Описание нижнего SEO блока", blank=False, null=False)
+        "Описание нижнего SEO блока", blank=True, null=False)
     search_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
-        blank=False,
+        blank=True,
         related_name='+',
         on_delete=models.SET_NULL,
         verbose_name=_('SEO Изображение страницы'),
@@ -137,6 +137,8 @@ class HomePage(SeoPageMixin):
     content_panels = SeoPageMixin.content_panels + [
         FieldPanel("body"),
     ]
+
+    parent_page_types = []
 
     subpage_types = [
         "home.RubricArticlesPage",
@@ -272,6 +274,8 @@ class BaseMaterialPage(SeoPageMixin):
         "Подпись для изображения", max_length=150, blank=False, null=True)
     is_send_email = models.BooleanField("Флаг отправки email", default=False)
 
+    subpage_types = []
+
     content_panels = SeoPageMixin.content_panels + [
         MultiFieldPanel([
             FieldPanel("short_description"),
@@ -294,6 +298,10 @@ class ArticlesPage(BaseMaterialPage):
     template = "home/article-detail.html"
 
     parent_page_type = ["home.RubricArticlesPage"]
+
+    @classmethod
+    def can_create_at(cls, parent):
+        return not cls.objects.exists()
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -352,6 +360,10 @@ class VacanciesPage(BaseMaterialPage):
         ], "Кнопка партнерской ссылки"),
         InlinePanel('elements_vacancy', heading="Выберите элемент вакансии"),
     ]
+
+    @classmethod
+    def can_create_at(cls, parent):
+        return not cls.objects.exists()
 
     def get_absolute_url(self):
         from django.urls import reverse
