@@ -68,8 +68,12 @@ def after_publish_page(request, page):
 
         # TODO: Настроить логгирование 
         print('create message', create_message_res.json())
+
+        # Удалить как включим отправку
+        page.is_send_email = True
+        page.save()
         
-        # # Отправка нового сообщения
+        # # Отправка нового сообщения (ВКЛЮЧИТЬ КАК ПРОГРЕЕМ ДОМЕН)
         # if create_message_res.status_code == 200:
         #     send_message_payload = copy.copy(payload)
 
