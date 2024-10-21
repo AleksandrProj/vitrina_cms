@@ -17,10 +17,37 @@ header {
     flex-wrap: wrap;
 }
 
+h1 {
+    font-size: 32px;   
+    line-height: 30px; 
+    color: #12504F;
+}
+
 h2 {
-    font-size: 40px;
+    font-size: 24px;
+    line-height: 22px;
     color: #12504F;
     margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 19px;
+    line-height: 17px;
+}
+
+h4 {
+    font-size: 16px;
+    line-height: 14px;
+}
+
+h5 {
+    font-size: 14px;
+    line-height: 12px;
+}
+
+h6 {
+    font-size: 12px;
+    line-height: 10px;
 }
 
 blockquote {
@@ -434,37 +461,6 @@ main .article-detail-page {
 .vacancy-description h6, .article-description h6 {
     color: #000000;
     margin: 20px auto;
-}
-
-.vacancy-description h1, .article-description h1 {
-    font-size: 32px;   
-    line-height: 30px; 
-}
-
-.footer-description h2,
-.vacancy-description h2, .article-description h2 {
-    font-size: 24px;
-    line-height: 22px;
-}
-
-.vacancy-description h3, .article-description h3 {
-    font-size: 19px;
-    line-height: 17px;
-}
-
-.vacancy-description h4, .article-description h4 {
-    font-size: 16px;
-    line-height: 14px;
-}
-
-.vacancy-description h5, .article-description h5 {
-    font-size: 14px;
-    line-height: 12px;
-}
-
-.vacancy-description h6, .article-description h6 {
-    font-size: 12px;
-    line-height: 10px;
 }
 
 .vacancy-detail-info {
