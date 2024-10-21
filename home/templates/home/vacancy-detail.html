@@ -30,10 +30,10 @@
                             height="{{ image_desktop.height }}">
                 {% image vacancy.image width-400 format-webp-lossless alt=vacancy.caption_image loading="lazy" %}
                 </picture>
-                <h2>
-                    {{ vacancy.title }}
+                <div>
+                    <h1>{{ vacancy.title }}</h1>
                     <div class="public-date">Дата размещения вакансии: {{ vacancy.latest_revision_created_at|date:"d.m.Y" }} {{ vacancy.latest_revision_created_at|date:"H:i" }}</div>
-                </h2>
+                </div>
             </div>            
 
             {% comment %} Список элементов вакансии {% endcomment %}
@@ -55,7 +55,7 @@
 
         {% comment %} SEO блок страницы {% endcomment %}
         <div class="footer-description">
-            <h3>{{ vacancy.seo_title_footer }}</h3>
+            <h2>{{ vacancy.seo_title_footer }}</h2>
             <p>{{ vacancy.seo_description_footer }}</p>
         </div>
         

@@ -21,7 +21,7 @@
     <main class="vacancies-page-block">
         {% comment %} Вывод информации по рубрике {% endcomment %}
         <div class="intro-desc-block">
-            <h2>{{ rubric.title }}</h2>
+            <h1>{{ rubric.title }}</h1>
             <p>{{ rubric.description }}</p>
         </div>      
 
@@ -30,15 +30,19 @@
             {% for page in pages %}
                 <div class="vacancy-card">
                     {% image page.image width-900 format-webp-lossless as image_desktop %}
-                    <picture>
-                    <source media="(min-width:640px)"
-                                srcset="{{ image_desktop.url }}"
-                                width="{{ image_desktop.width }}"
-                                height="{{ image_desktop.height }}">
-                    {% image page.image width-400 format-webp-lossless alt=page.caption_image loading="lazy" %}
-                    </picture>
+                    <a href="{% url 'vacancy_detail' slug=page.slug %}">
+                        <picture>
+                        <source media="(min-width:640px)"
+                                    srcset="{{ image_desktop.url }}"
+                                    width="{{ image_desktop.width }}"
+                                    height="{{ image_desktop.height }}">
+                        {% image page.image width-400 format-webp-lossless alt=page.caption_image loading="lazy" %}
+                        </picture>
+                    </a>
                     <div class="vacancy-card-content">
-                        <h2>{{ page.title }}</h2>
+                        <a href="{% url 'vacancy_detail' slug=page.slug %}">
+                            <h2>{{ page.title }}</h2>
+                        </a>
                         {% for element in page.elements_vacancy.all %}
                             {% if element.element.name == 'Зарплата' %}
                                 <p><strong>{{ element.element.name }}:</strong> {{ element.content }}</p>
@@ -57,7 +61,7 @@
 
         {% comment %} SEO блок страницы {% endcomment %}
         <div class="footer-description">
-            <h3>{{ rubric.seo_title_footer }}</h3>
+            <h2>{{ rubric.seo_title_footer }}</h2>
             <p>{{ rubric.seo_description_footer }}</p>
         </div>
     </main>
