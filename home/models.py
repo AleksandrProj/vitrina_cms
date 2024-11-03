@@ -299,10 +299,6 @@ class ArticlesPage(BaseMaterialPage):
 
     parent_page_type = ["home.RubricArticlesPage"]
 
-    @classmethod
-    def can_create_at(cls, parent):
-        return not cls.objects.exists()
-
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('article_detail', kwargs={'slug': self.slug})
@@ -360,10 +356,6 @@ class VacanciesPage(BaseMaterialPage):
         ], "Кнопка партнерской ссылки"),
         InlinePanel('elements_vacancy', heading="Выберите элемент вакансии"),
     ]
-
-    @classmethod
-    def can_create_at(cls, parent):
-        return not cls.objects.exists()
 
     def get_absolute_url(self):
         from django.urls import reverse
