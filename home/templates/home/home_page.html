@@ -35,7 +35,7 @@
                         <p>{{ material.value.vacancies.short_description }}</p>
 
                         <a href="{% url 'vacancy_detail' slug=material.value.vacancies.slug %}" class="more-button">Подробнее о вакансии</a>
-                        <a href="{{ material.value.vacancies.pp_url_button }}" class="respond-button">{{ material.value.vacancies.pp_name_button }}</a>
+                        <a href="{{ material.value.vacancies.pp_url_button }}" class="respond-button" rel="nofollow">{{ material.value.vacancies.pp_name_button }}</a>
                     </div>
                 </div>
             {% endif %}
