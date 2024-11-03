@@ -50,7 +50,7 @@
                         {% endfor %}
                         <div>{{page.short_description}}</div>                        
                         <a href="{% url 'vacancy_detail' slug=page.slug %}" class="more-button">Подробнее о вакансии</a>
-                        <a href="{{ page.pp_url_button }}" class="respond-button">{{ page.pp_name_button }}</a>
+                        <a href="{{ page.pp_url_button }}" class="respond-button" rel="nofollow">{{ page.pp_name_button }}</a>
                     </div>
                 </div>
             {% endfor %}
