@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -17,6 +18,7 @@ urlpatterns = [
     path("subscribe/", HandleSubscribersView.as_view(), name="subscribe"),
     path("subscribe/success/<int:subscribe_id>", HandleSubscribersView.as_view(), name="subscribe_success"),
     path("subscribe/fail", HandleSubscribersView.as_view(), name="subscribe_fail"),
+    re_path(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon/favicon.ico')),
     path("", include("home.urls"))
 ]
 
