@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap
+
 from home.models import (
     HomePage,
     ArticlesPage,
@@ -8,13 +10,19 @@ from home.models import (
 )
 
 
-class HomeSitemap(Sitemap):
+class MainSitemap(Sitemap):
     """
-        Sitemap для главной страницы
+        Главный класс для всех Sitemaps с определенными параметрами
     """
+    protocol = "https" if not settings.DEBUG else "http"
     changefreq = "weekly"
     priority = 0.9
 
+
+class HomeSitemap(MainSitemap):
+    """
+        Sitemap для главной страницы
+    """
     def items(self):
         return HomePage.objects.filter(live=True)
     
@@ -22,13 +30,10 @@ class HomeSitemap(Sitemap):
         return obj.latest_revision_created_at
 
 
-class RubricArticlesSitemap(Sitemap):
+class RubricArticlesSitemap(MainSitemap):
     """
         Sitemap для страницы рубрики статей
     """
-    changefreq = "weekly"
-    priority = 0.9
-
     def items(self):
         return RubricArticlesPage.objects.filter(live=True)
     
@@ -36,13 +41,10 @@ class RubricArticlesSitemap(Sitemap):
         return obj.latest_revision_created_at
     
 
-class RubricVacanciesSitemap(Sitemap):
+class RubricVacanciesSitemap(MainSitemap):
     """
         Sitemap для страницы рубрики вакансий
     """
-    changefreq = "weekly"
-    priority = 0.9
-
     def items(self):
         return RubricVacanciesPage.objects.filter(live=True)
     
@@ -50,13 +52,10 @@ class RubricVacanciesSitemap(Sitemap):
         return obj.latest_revision_created_at
 
 
-class ArticlesSitemap(Sitemap):
+class ArticlesSitemap(MainSitemap):
     """
         Sitemap для страниц статей
     """
-    changefreq = "weekly"
-    priority = 0.9
-
     def items(self):
         return ArticlesPage.objects.filter(live=True)
     
@@ -64,13 +63,10 @@ class ArticlesSitemap(Sitemap):
         return obj.latest_revision_created_at
     
     
-class VacanciesSitemap(Sitemap):
+class VacanciesSitemap(MainSitemap):
     """
         Sitemap для страниц вакансий
     """
-    changefreq = "weekly"
-    priority = 0.9
-
     def items(self):
         return VacanciesPage.objects.filter(live=True)
     
