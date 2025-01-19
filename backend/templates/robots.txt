@@ -2,6 +2,9 @@ User-Agent: *
 Disallow: /admin/
 Disallow: /search/
 Disallow: /subscribe/
+Disallow: /media/documents/privacy-policy.pdf
+Disallow: /media/documents/policy-personal-data.pdf
+Disallow: /media/documents/cookies.pdf
 
 # Sitemap files
 Sitemap: {{ wagtail_site.root_url }}/sitemap.xml
