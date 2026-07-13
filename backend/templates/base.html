@@ -97,15 +97,6 @@
           <div class="intro">
             {{main_banner.header|richtext}}
           </div>
-          <div class="subscribe-form">
-            <form action="{% url 'subscribe' %}" method="post">
-              {% csrf_token %}
-              {{form.name}}
-              {{form.email}}
-              <input id="submit_btn" type="submit" value="Подписаться">
-              <div id="agreement-field">{{form.agreement}} Я <a href="{{kolontituls.agreement_document.file.url}}" target="__blank">согласен на обработку персональных данных</a></div>
-            </form>
-          </div>
         </div>
       </div>
 
